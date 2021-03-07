@@ -1,4 +1,4 @@
-from models.pessoa import Pessoa
+from pessoa import Pessoa
 
 
 class Vendedor(Pessoa):
