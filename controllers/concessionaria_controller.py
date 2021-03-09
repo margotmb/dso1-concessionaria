@@ -7,3 +7,6 @@ class ConcessionariaController:
     def __init__(self):
         self.__model = Concessionaria()
         self.__view =  ConcessionariaView()
+
+    def run(self):
+        pass
