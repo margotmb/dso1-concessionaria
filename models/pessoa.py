@@ -4,9 +4,8 @@ from abc import ABC, abstractmethod
 class Pessoa(ABC):
 
     @abstractmethod
-    def __init__(self, nome: str, cpf: str, telefone: str):
+    def __init__(self, nome: str, telefone: str):
         self.__nome = nome
-        self.__cpf = cpf
         self.__telefone = telefone
 
     @property
@@ -18,18 +17,9 @@ class Pessoa(ABC):
         self.__nome = nome
 
     @property
-    def cpf(self):
-        return self.__cpf
-
-    @cpf.setter
-    def cpf(self, cpf: str):
-        self.__cpf = cpf
-
-    @property
     def telefone(self):
         return self.__telefone
-  
+
     @telefone.setter
     def telefone(self, telefone: str):
         self.__telefone = telefone
-
