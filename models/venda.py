@@ -1,6 +1,6 @@
-from vendedor import Vendedor
-from cliente import Cliente
-from carro import Carro
+from models.vendedor import Vendedor
+from models.cliente import Cliente
+from models.carro import Carro
 
 
 class Venda:
