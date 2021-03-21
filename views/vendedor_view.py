@@ -15,13 +15,18 @@ class VendedorView():
     def cadastra(self):
         nome = input("Nome do Vendedor:")
         telefone = input("Telefone do Vendedor:")
-        return [nome, telefone]
+        num_id = input("Numero de Identificação:")
+        return [nome, telefone, num_id]
     
-    def lista(self):
-        pass
+    def lista(self, lista):
+        print(lista)
 
     def atualiza(self):
-        pass
+        nome = input("Nome do Vendedor:")
+        telefone = input("Telefone do Vendedor:")
+        num_id = input("Numero de Identificação:")
+        return [nome, telefone, num_id]
 
     def remove(self):
-        pass
+        num_id = input("ID do vendedor:")
+        return num_id
