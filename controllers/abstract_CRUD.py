@@ -1,14 +1,14 @@
-from models.concessionaria import Concessionaria
-from models.cliente import Cliente
-from views.cliente_view import ClienteView
+from abc import ABC, abstractmethod
 
-class ClienteController():
-    def __init__(self, model: Concessionaria):
-        self.__concessionaria_model = model
-        self.__cliente_view = ClienteView()
 
+class AbstractCRUD(ABC):
+    @abstractmethod
+    def __init__(self, model, view):
+        self.__model = model
+        self.__view = view
+    
     def run(self):
-        opcao = self.__cliente_view.tela_principal()
+        opcao = self.__view.tela_principal()
         if opcao == "1":
             self.adiciona()
         elif opcao == "2":

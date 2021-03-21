@@ -1,6 +1,6 @@
-from carro import Carro
-from cliente import Cliente
-from vendedor import Vendedor
+from models.carro import Carro
+from models.cliente import Cliente
+from models.vendedor import Vendedor
 
 
 class Concessionaria:
