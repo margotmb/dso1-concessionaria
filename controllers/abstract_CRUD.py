@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class AbstractCRUD(ABC):
     @abstractmethod
-    def __init__(self, model, view):
-        self.__model = model
+    def __init__(self, concessionaria, view):
+        self.__concessionaria = concessionaria
         self.__view = view
     
     def run(self):

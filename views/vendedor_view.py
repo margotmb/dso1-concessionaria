@@ -1,27 +1,63 @@
+import os
+
 class VendedorView():
     def __init__(self):
         pass
 
     def tela_principal(self):
-        print("Gerenciamento de vendedor")
+        print("\n---- Gerenciamento de vendedor ----")
         print("1 - Cadastrar")
         print("2 - Listar")
         print("3 - Atualizar")
         print("4 - Remover")
         print("0 - Sair")
-        opcao = input()
+        print("-----------------------------------")
+        opcao = input("Opção: ")
         return opcao
 
     def cadastra(self):
         nome = input("Nome do Vendedor:")
         telefone = input("Telefone do Vendedor:")
-        return [nome, telefone]
+        try:
+            num_id = int(input("Numero de Identificação:"))
+        except ValueError as e:
+            print('\nERRO: Caracter inválido: {}'.format(e))
+        else:
+            return [nome, telefone, num_id]
     
-    def lista(self):
-        pass
+    def lista(self, lista):
+        os.system('cls')
+        i = 0
+        print("\nLISTA DE VENDEDORES:")
+        for vendedor in lista:
+            print("#" + str(i))
+            print("Nome: " + vendedor.nome)
+            print("Telefone: "+ vendedor.telefone)
+            print("ID: "+ str(vendedor.num_id))
+            print("-----------------------------------")
+            i += 1
 
     def atualiza(self):
-        pass
+        print("\n-----------------------------------")
+        nome = input("Nome do Vendedor:")
+        telefone = input("Telefone do Vendedor:")
+        try:
+            num_id = int(input("Numero de Identificação:"))
+        except ValueError as e:
+            print('\nERRO: Caracter inválido: {}'.format(e))
+        else: 
+            return [nome, telefone, num_id]
 
     def remove(self):
-        pass
+        try:
+            num_id = int(input("ID do vendedor:"))
+        except ValueError as e:
+            print('\nERRO: Caracter inválido: {}'.format(e))
+        else:    
+            return num_id
+
+    def sucesso(self):
+        print("Operação realizada com sucesso")
+    
+    def erro(self):
+        print("\nERRO")

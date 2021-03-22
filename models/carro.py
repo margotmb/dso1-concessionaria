@@ -8,7 +8,7 @@ class Carro:
     @property
     def modelo(self):
         return self.__modelo
-    
+
     @modelo.setter
     def modelo(self, modelo: str):
         self.__modelo = modelo
@@ -16,7 +16,7 @@ class Carro:
     @property
     def ano(self):
         return self.__ano
-    
+
     @ano.setter
     def ano(self, ano: int):
         self.__ano = ano
@@ -24,7 +24,7 @@ class Carro:
     @property
     def valor(self):
         return self.__valor
-    
+
     @valor.setter
     def valor(self, valor: int):
         self.__valor = valor
