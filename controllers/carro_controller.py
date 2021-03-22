@@ -1,3 +1,3 @@
 class CarroController():
-    def __init__(self):
-        pass
+    def __init__(self, model):
+        self.__concessionaria_model = model

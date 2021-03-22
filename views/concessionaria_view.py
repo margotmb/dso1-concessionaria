@@ -2,4 +2,24 @@ class ConcessionariaView:
 
     def __init__(self):
         pass
-    
+
+    def tela_principal(self):
+        print("-----------------------------------")
+        print("Gerenciamento de Concessionária")
+        print("1 - Gerenciamento")
+        print("2 - Compra")
+        print("-----------------------------------")
+        opcao = input("Opção: ")
+        return opcao
+
+    def tela_gerenciamento(self):
+        print("-----------------------------------")
+        print("1 - Vendedores")
+        print("2 - Clientes")
+        print("3 - Carros")
+        print("-----------------------------------")
+        opcao = input("Opção: ")
+        return opcao
+
+    def tela_compra(self):
+        pass

@@ -1,26 +1,42 @@
 from models.concessionaria import Concessionaria
 from models.vendedor import Vendedor
 from views.vendedor_view import VendedorView
-from controllers.abstract_CRUD import AbstractCRUD
 
 
-class VendedorController(AbstractCRUD):
-    def __init__(self, concessionaria: Concessionaria, view = VendedorView):
-        super().__init__(concessionaria, view)
+class VendedorController():
+    def __init__(self, concessionaria: Concessionaria):
+        self.__concessionaria = concessionaria
+        self.__view = VendedorView()
 
-    #def run() -in-> AbstractCRUD
+    def run(self):
+        opcao = self.__view.tela_principal()
+        while opcao != "0":
+            if opcao == "1":
+                self.cadastra()
+            elif opcao == "2":
+                print(opcao)
+                self.lista()
+            elif opcao == "3":
+                self.atualiza()
+            elif opcao == "4":
+                self.remove()
+            opcao = self.__view.tela_principal()
 
-    def adiciona(self):
-        info = self.__view.adiciona()
+    def cadastra(self):
+        info = self.__view.cadastra()
 
-        duplicado = False
-        for vendedor in self.__concessionaria.vendedores:
-            if vendedor.num_id == info[2]:
-                duplicado = True
-        
-        if not duplicado:
-            vendedor = Vendedor(info[0], info[1], info[2])
-            self.__concessionaria.cadastra_objeto(vendedor)
+        if info is not None:
+            duplicado = False
+            for vendedor in self.__concessionaria.vendedores:
+                if vendedor.num_id == info[2]:
+                    duplicado = True
+            
+            if not duplicado:
+                vendedor = Vendedor(info[0], info[1], info[2])
+                self.__concessionaria.cadastra_objeto(vendedor)
+                self.__view.sucesso()
+            else:
+                self.__view.erro()
 
     def lista(self):
         self.__view.lista(self.__concessionaria.vendedores)
