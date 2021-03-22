@@ -26,8 +26,10 @@ class ConcessionariaController:
                     vendedor_controller.run()
                 elif opcao == "2":
                     self.__cliente_controller = ClienteController(self.__concessionaria_model)
+                    self.__cliente_controller.run()
                 elif opcao == "3":
                     self.__carro_controller = CarroController(self.__concessionaria_model)
+                    self.__carro_controller.run()
 
             #Vendas
             if opcao == "2":

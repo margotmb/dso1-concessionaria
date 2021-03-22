@@ -23,10 +23,12 @@ class VendedorView():
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             return [nome, telefone, num_id]
+
     
     def lista(self, lista):
-        os.system('cls')
+        os.system('cls' if os.name == 'nt' else 'clear')
         i = 0
         print("\nLISTA DE VENDEDORES:")
         for vendedor in lista:
