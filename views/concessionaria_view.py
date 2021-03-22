@@ -1,3 +1,5 @@
+import os
+
 class ConcessionariaView:
 
     def __init__(self):
@@ -19,6 +21,7 @@ class ConcessionariaView:
         print("3 - Carros")
         print("-----------------------------------")
         opcao = input("Opção: ")
+        os.system('cls')
         return opcao
 
     def tela_compra(self):
