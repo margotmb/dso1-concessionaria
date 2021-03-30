@@ -8,7 +8,7 @@ class Concessionaria:
     def __init__(self):
         self.__carros = []
         self.__clientes = []
-        self.__vendedores = []
+        self.__vendedores = [Vendedor("NOME", "1231231", 50)]
         self.__vendas = []
     
     @property
