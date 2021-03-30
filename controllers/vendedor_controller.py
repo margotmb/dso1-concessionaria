@@ -8,6 +8,7 @@ class VendedorController():
         self.__concessionaria = concessionaria
         self.__view = VendedorView()
 
+    #Tela Principal de Vendedor
     def run(self):
         opcao = self.__view.tela_principal()
         while opcao != "0":
@@ -51,4 +52,3 @@ class VendedorController():
         for vendedor in self.__concessionaria.vendedores:
             if vendedor.num_id == num_id:
                 self.__concessionaria.remove_objeto(vendedor)
-        

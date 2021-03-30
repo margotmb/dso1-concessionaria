@@ -3,15 +3,15 @@ from models.pessoa import Pessoa
 
 class Cliente(Pessoa):
 
-    def __init__(self, nome: str, telefone: str, saldo: float, cpf: str):
+    def __init__(self, nome: str, telefone: str, saldo: float, num_id: int):
         super().__init__(nome, telefone)
         self.__saldo = saldo
-        self.__cpf = cpf
+        self.__num_id = num_id
     
     @property
     def saldo(self):
         return self.__saldo
     
     @property
-    def cpf(self):
-        return self.__cpf
+    def num_id(self):
+        return self.__num_id
