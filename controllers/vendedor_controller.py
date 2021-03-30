@@ -14,7 +14,6 @@ class VendedorController():
             if opcao == "1":
                 self.cadastra()
             elif opcao == "2":
-                print(opcao)
                 self.lista()
             elif opcao == "3":
                 self.atualiza()
@@ -26,17 +25,14 @@ class VendedorController():
         info = self.__view.cadastra()
 
         if info is not None:
-            duplicado = False
             for vendedor in self.__concessionaria.vendedores:
                 if vendedor.num_id == info[2]:
-                    duplicado = True
-            
-            if not duplicado:
-                vendedor = Vendedor(info[0], info[1], info[2])
-                self.__concessionaria.cadastra_objeto(vendedor)
-                self.__view.sucesso()
-            else:
-                self.__view.erro()
+                    self.__view.erro()
+                    return
+
+            vendedor = Vendedor(info[0], info[1], info[2])
+            self.__concessionaria.cadastra_objeto(vendedor)
+            self.__view.sucesso()
 
     def lista(self):
         self.__view.lista(self.__concessionaria.vendedores)

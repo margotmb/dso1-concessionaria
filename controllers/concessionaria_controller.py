@@ -3,6 +3,7 @@ from views.concessionaria_view import ConcessionariaView
 from controllers.cliente_controller import ClienteController
 from controllers.vendedor_controller import VendedorController
 from controllers.carro_controller import CarroController
+from controllers.venda_controller import VendaController
 import os
 
 
@@ -33,4 +34,5 @@ class ConcessionariaController:
 
             #Vendas
             if opcao == "2":
-                self.__concessionaria_view.tela_compra()
+                venda_controller = VendaController(self.__concessionaria_model)
+                venda_controller.run()
