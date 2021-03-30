@@ -55,6 +55,7 @@ class VendedorView():
             num_id = int(input("ID do vendedor:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
+            return 0
         else:    
             return num_id
 

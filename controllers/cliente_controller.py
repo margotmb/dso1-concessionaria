@@ -9,14 +9,6 @@ class ClienteController():
 
     def run(self):
         opcao = self.__cliente_view.tela_principal()
-        if opcao == "1":
-            self.adiciona()
-        elif opcao == "2":
-            self.lista()
-        elif opcao == "3":
-            self.atualiza()
-        elif opcao == "4":
-            self.remove()
 
     def adiciona(self):
         pass

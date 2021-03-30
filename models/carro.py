@@ -1,9 +1,10 @@
 class Carro:
 
-    def __init__(self, modelo: str, ano: int, valor: float):
+    def __init__(self, modelo: str, ano: int, valor: float, num_id: int):
         self.__modelo = modelo
         self.__ano = ano
         self.__valor = valor
+        self.__num_id = num_id
 
     @property
     def modelo(self):
@@ -28,3 +29,7 @@ class Carro:
     @valor.setter
     def valor(self, valor: int):
         self.__valor = valor
+
+    @property
+    def num_id(self):
+        return self.__num_id
