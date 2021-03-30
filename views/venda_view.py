@@ -1,4 +1,6 @@
 from datetime import date as Date
+import os
+
 
 class VendaView():
     def __init__(self):
@@ -11,3 +13,15 @@ class VendaView():
         tempo_garantia = int(input("Tempo de Garantia: "))
         data = Date.today()
         return [vendedor, cliente, carro, tempo_garantia, data]
+    
+    def relatorio(self, vendas: list):
+        os.system('cls' if os.name == 'nt' else 'clear')
+        i = 0
+        print("\nLISTA DE VENDAS:")
+        for venda in vendas:
+            print("#" + str(i))
+            print("Vendedor: " + venda.vendedor.nome)
+            print("Cliente: "+ venda.cliente.nome)
+            print("Carro: "+ venda.carro.modelo +" - "+ str(venda.carro.ano))
+            print("-----------------------------------")
+            i += 1

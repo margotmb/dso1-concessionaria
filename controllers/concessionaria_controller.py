@@ -35,4 +35,4 @@ class ConcessionariaController:
             #Vendas
             if opcao == "2":
                 venda_controller = VendaController(self.__concessionaria_model)
-                venda_controller.run()
+                venda_controller.nova_venda()

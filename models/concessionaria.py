@@ -1,6 +1,7 @@
 from models.carro import Carro
 from models.cliente import Cliente
 from models.vendedor import Vendedor
+from models.venda import Venda
 
 
 class Concessionaria:
@@ -38,3 +39,6 @@ class Concessionaria:
             self.__clientes.remove(objeto)
         if isinstance(objeto, Vendedor):
             self.__vendedores.remove(objeto)
+    
+    def nova_venda(self, venda: Venda):
+        self.__vendas.append(venda)
