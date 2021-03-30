@@ -39,10 +39,12 @@ class VendedorController():
 
     def atualiza(self):
         info = self.__view.atualiza()
-        for vendedor in self.__concessionaria.vendedores:
-            if vendedor.num_id == info[2]:
-                vendedor.nome = info[0]
-                vendedor.telefone = info[1]
+
+        if info is not None:
+            for vendedor in self.__concessionaria.vendedores:
+                if vendedor.num_id == info[2]:
+                    vendedor.nome = info[0]
+                    vendedor.telefone = info[1]
 
     def remove(self):
         num_id = self.__view.remove()
