@@ -15,7 +15,6 @@ class VendaView():
         return [vendedor, cliente, carro, tempo_garantia, data]
     
     def relatorio(self, vendas: list):
-        os.system('cls' if os.name == 'nt' else 'clear')
         i = 0
         print("\nLISTA DE VENDAS:")
         for venda in vendas:

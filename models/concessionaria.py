@@ -7,9 +7,9 @@ from models.venda import Venda
 class Concessionaria:
 
     def __init__(self):
-        self.__carros = []
-        self.__clientes = []
-        self.__vendedores = [Vendedor("NOME", "1231231", 50)]
+        self.__carros = [Carro("Sedan", 2010, 50000, 10)]
+        self.__clientes = [Cliente("José", "1231231231", 1000000, 20)]
+        self.__vendedores = [Vendedor("Vendedor 1", "1231231", 50)]
         self.__vendas = []
     
     @property
@@ -23,6 +23,10 @@ class Concessionaria:
     @property
     def vendedores(self):
         return self.__vendedores
+    
+    @property
+    def vendas(self):
+        return self.__vendas
 
     def cadastra_objeto(self, objeto):
         if isinstance(objeto, Carro):

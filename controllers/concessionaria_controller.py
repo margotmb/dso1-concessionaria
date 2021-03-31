@@ -36,3 +36,7 @@ class ConcessionariaController:
             if opcao == "2":
                 venda_controller = VendaController(self.__concessionaria_model)
                 venda_controller.nova_venda()
+            
+            if opcao == "3":
+                venda_controller = VendaController(self.__concessionaria_model)
+                venda_controller.relatorio()

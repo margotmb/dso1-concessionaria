@@ -15,22 +15,29 @@ class VendaController():
         #info[2] -> ID_Carro
         #info[3] -> Garantia
         #info[4] -> Data
-        vendedor_existe = False
-        cliente_existe = False
-        carro_existe = False
+        vendedor = None
+        cliente = None
+        carro = None
 
-        for vendedor in self.__concessionaria.vendedores:
-                if vendedor.num_id == info[0]:
-                    vendedor_existe = True
-        for cliente in self.__concessionaria.vendedores:
-                if cliente.num_id == info[1]:
-                    cliente_existe = True
-        for carro in self.__concessionaria.vendedores:
-                if carro.num_id == info[2]:
-                    carro_existe = True
+        for vend in self.__concessionaria.vendedores:
+                if vend.num_id == info[0]:
+                    vendedor = vend
+                    print("ID Vendedor:" + str(vend.num_id))
+        for cli in self.__concessionaria.clientes:
+                if cli.num_id == info[1]:
+                    cliente = cli
+                    print("ID Cliente:" + str(cli.num_id))
+        for car in self.__concessionaria.carros:
+                if car.num_id == info[2]:
+                    carro = car
+                    print ("ID Carro:" + str(carro.num_id))
 
-        if vendedor_existe and cliente_existe and carro_existe:
-            self.__concessionaria.nova_venda(Venda(info[0], info[1], info[2], info[3], info[4]))
+        #Se os 3 objetos existem no sistema, realiza a venda
+        if vendedor is not None and cliente is not None and carro is not None:
+            vendedor.carros_vendidos += 1
+            vendedor.receita_gerada = vendedor.receita_gerada + carro.valor
+            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, info[3], info[4]))
+            print("Venda bem sucedida")
     
     def relatorio(self):
         self.__view.relatorio(self.__concessionaria.vendas)
