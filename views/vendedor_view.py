@@ -13,6 +13,7 @@ class VendedorView():
         print("0 - Sair")
         print("-----------------------------------")
         opcao = input("Opção: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
         return opcao
 
     def cadastra(self):
@@ -39,16 +40,20 @@ class VendedorView():
             print("-----------------------------------")
             i += 1
 
-    def atualiza(self):
-        print("\n-----------------------------------")
-        nome = input("Nome do Vendedor:")
-        telefone = input("Telefone do Vendedor:")
+    def vendedor_id(self):
         try:
             num_id = int(input("Numero de Identificação:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
-        else: 
-            return [nome, telefone, num_id]
+        else:
+            return num_id
+
+    def atualiza(self):
+        print("\n-----------------------------------")
+        nome = input("Nome do Vendedor:")
+        telefone = input("Telefone do Vendedor:")
+        os.system('cls' if os.name == 'nt' else 'clear')
+        return [nome, telefone]
 
     def remove(self):
         try:
