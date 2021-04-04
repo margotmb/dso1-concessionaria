@@ -30,13 +30,25 @@ class VendaView():
             print("Carro: "+ venda.carro.modelo +" - "+ str(venda.carro.ano))
             print("-----------------------------------")
             i += 1
-        
-        vendedor_mais_carros = vendas[0].vendedor
-        for venda in vendas:
-            if venda.vendedor.carros_vendidos > vendedor_mais_carros.carros_vendidos:
-                vendedor_mais_carros = venda.vendedor
-        
-        print("\nVendedor que mais vendeu carros: ")
-        print("Nome: "+ vendedor_mais_carros.nome)
-        print("ID: "+ str(vendedor_mais_carros.num_id))
+        try:
+            vendedor_mais_carros = vendas[0].vendedor
+            vendedor_maior_receita = vendas[0].vendedor
+        except IndexError:
+            print('\nERRO: Não há vendas cadastradas no sistema.')
+        else:
+            for venda in vendas:
+                if venda.vendedor.carros_vendidos > vendedor_mais_carros.carros_vendidos:
+                    vendedor_mais_carros = venda.vendedor
+                if venda.vendedor.receita_gerada > vendedor_maior_receita.receita_gerada:
+                    vendedor_maior_receita = venda.vendedor
+            
+            print("\nVendedor que mais vendeu carros: ")
+            print("Nome: "+ vendedor_mais_carros.nome)
+            print("Carros Vendidos: "+ str(vendedor_mais_carros.carros_vendidos))
 
+            print("\nVendedor que mais gerou receita: ")
+            print("Nome: " + vendedor_maior_receita)
+            print("Receita Gerada: " + str(vendedor_maior_receita.receita_gerada))
+
+    def venda_bem_sucedida(self):
+        print("Venda bem sucedida")

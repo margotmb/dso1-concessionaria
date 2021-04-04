@@ -36,8 +36,10 @@ class VendaController():
         if vendedor is not None and cliente is not None and carro is not None:
             vendedor.carros_vendidos += 1
             vendedor.receita_gerada = vendedor.receita_gerada + carro.valor
-            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, info[3], info[4]))
-            print("Venda bem sucedida")
+            garantia = info[3]
+            data = info[4]
+            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, garantia, data))
+            self.__view.venda_bem_sucedida()
 
     def relatorio(self):
         self.__view.relatorio(self.__concessionaria.vendas)
