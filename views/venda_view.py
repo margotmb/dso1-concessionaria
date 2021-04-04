@@ -31,12 +31,12 @@ class VendaView():
             print("-----------------------------------")
             i += 1
         
-        vendedor_mais_carros = venda[0].vendedor
+        vendedor_mais_carros = vendas[0].vendedor
         for venda in vendas:
             if venda.vendedor.carros_vendidos > vendedor_mais_carros.carros_vendidos:
                 vendedor_mais_carros = venda.vendedor
         
-        print("Vendedor que mais vendeu carros: ")
+        print("\nVendedor que mais vendeu carros: ")
         print("Nome: "+ vendedor_mais_carros.nome)
         print("ID: "+ str(vendedor_mais_carros.num_id))
 
