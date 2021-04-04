@@ -10,16 +10,17 @@ class VendedorController():
 
     #Tela Principal de Vendedor
     def run(self):
+        print("Controlador de vendedor rodou")
+        op_dict = {
+                "1" : self.cadastra,
+                "2" : self.lista,
+                "3" : self.atualiza,
+                "4" : self.remove
+        }
         opcao = self.__view.tela_principal()
         while opcao != "0":
-            if opcao == "1":
-                self.cadastra()
-            elif opcao == "2":
-                self.lista()
-            elif opcao == "3":
-                self.atualiza()
-            elif opcao == "4":
-                self.remove()
+            func = op_dict[opcao]
+            func()
             opcao = self.__view.tela_principal()
 
     def cadastra(self):

@@ -38,6 +38,6 @@ class VendaController():
             vendedor.receita_gerada = vendedor.receita_gerada + carro.valor
             self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, info[3], info[4]))
             print("Venda bem sucedida")
-    
+
     def relatorio(self):
         self.__view.relatorio(self.__concessionaria.vendas)

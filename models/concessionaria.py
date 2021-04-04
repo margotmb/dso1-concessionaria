@@ -7,9 +7,13 @@ from models.venda import Venda
 class Concessionaria:
 
     def __init__(self):
-        self.__carros = [Carro("Sedan", 2010, 50000, 10)]
-        self.__clientes = [Cliente("José", "1231231231", 1000000, 20)]
-        self.__vendedores = [Vendedor("Vendedor 1", "1231231", 50)]
+        self.__carros = [Carro("Sedan", 2010, 50000, 1)]
+        self.__clientes = [Cliente("José", "1231231231", 1000000, 101),
+                           Cliente("José", "1231231231", 1000000, 102),
+                           Cliente("José", "1231231231", 1000000, 103),
+                           Cliente("José", "1231231231", 1000000, 104),
+                           Cliente("José", "1231231231", 1000000, 105)]
+        self.__vendedores = [Vendedor("Vendedor 1", "1231231", 201), Vendedor("Vendedor 2", "12312312", 202)]
         self.__vendas = []
     
     @property
