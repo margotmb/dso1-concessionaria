@@ -7,7 +7,7 @@ class ClienteController():
         self.__concessionaria = concessionaria
         self.__cliente_view = ClienteView()
 
-    #Tela Principal de Vendedor
+    #Tela Principal de Cliente
     def run(self):
         op_dict = {
                 "1" : self.cadastra,
@@ -47,6 +47,7 @@ class ClienteController():
                 if info is not None:
                     cliente.nome = info[0]
                     cliente.telefone = info[1]
+                    self.__cliente_view.sucesso()
                     return
         self.__cliente_view.erro("Cliente não encontrado")
 

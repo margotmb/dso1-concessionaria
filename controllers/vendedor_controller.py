@@ -49,6 +49,7 @@ class VendedorController():
                 if info is not None:
                     vend.nome = info[0]
                     vend.telefone = info[1]
+                    self.__view.sucesso()
                     return
         self.__view.erro("Vendedor não encontrado")
 
