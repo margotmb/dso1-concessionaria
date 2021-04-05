@@ -22,15 +22,15 @@ class VendaController():
         for vend in self.__concessionaria.vendedores:
                 if vend.num_id == info[0]:
                     vendedor = vend
-                    print("ID Vendedor:" + str(vend.num_id))
+                    #print("ID Vendedor:" + str(vend.num_id))
         for cli in self.__concessionaria.clientes:
                 if cli.num_id == info[1]:
                     cliente = cli
-                    print("ID Cliente:" + str(cli.num_id))
+                    #print("ID Cliente:" + str(cli.num_id))
         for car in self.__concessionaria.carros:
                 if car.num_id == info[2]:
                     carro = car
-                    print ("ID Carro:" + str(carro.num_id))
+                    #print ("ID Carro:" + str(carro.num_id))
 
         #Se os 3 objetos existem no sistema, realiza a venda
         if vendedor is not None and cliente is not None and carro is not None:

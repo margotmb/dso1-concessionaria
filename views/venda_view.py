@@ -47,7 +47,7 @@ class VendaView():
             print("Carros Vendidos: "+ str(vendedor_mais_carros.carros_vendidos))
 
             print("\nVendedor que mais gerou receita: ")
-            print("Nome: " + vendedor_maior_receita)
+            print("Nome: " + vendedor_maior_receita.nome)
             print("Receita Gerada: " + str(vendedor_maior_receita.receita_gerada))
 
     def venda_bem_sucedida(self):
