@@ -18,7 +18,7 @@ class Concessionaria:
                            Cliente("Aline", "988148696", 103),
                            Cliente("Ana", "975148571", 104),
                            Cliente("Antônio", "991405869", 105)]
-        self.__vendedores = [Vendedor("Vendedor 1", "991540932", 201), Vendedor("Vendedor 2", "988128231", 202)]
+        self.__vendedores = [Vendedor("Vendedor A", "991540932", 201), Vendedor("Vendedor B", "988128231", 202)]
         self.__vendas = []
     
     @property
