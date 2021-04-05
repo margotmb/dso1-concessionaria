@@ -14,30 +14,29 @@ class ConcessionariaController:
         self.__concessionaria_view =  ConcessionariaView()
 
     def run(self):
-        opcao = "X"
-        while opcao != "0":
-            opcao = self.__concessionaria_view.tela_principal()
+        op_main = "X"
+        while op_main != "0":
+            op_main = self.__concessionaria_view.tela_principal()
             #Gerenciamento
-            if opcao == "1":
-                opcao = self.__concessionaria_view.tela_gerenciamento()
+            if op_main == "1":
+                op_manage = self.__concessionaria_view.tela_gerenciamento()
 
                 #Escolhendo Controlador - Gerenciamento
-                if opcao == "1":
+                if op_manage == "1":
                     vendedor_controller = VendedorController(self.__concessionaria_model)
                     vendedor_controller.run()
-                elif opcao == "2":
+                elif op_manage == "2":
                     self.__cliente_controller = ClienteController(self.__concessionaria_model)
                     self.__cliente_controller.run()
-                elif opcao == "3":
+                elif op_manage == "3":
                     self.__carro_controller = CarroController(self.__concessionaria_model)
                     self.__carro_controller.run()
-
             #Vendas
-            if opcao == "2":
+            elif op_main == "2":
                 venda_controller = VendaController(self.__concessionaria_model)
                 venda_controller.nova_venda()
             
             #Relatório
-            if opcao == "3":
+            elif op_main == "3":
                 venda_controller = VendaController(self.__concessionaria_model)
                 venda_controller.relatorio()
