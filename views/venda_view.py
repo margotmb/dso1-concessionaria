@@ -19,7 +19,7 @@ class VendaView():
             data = Date.today()
             os.system('cls' if os.name == 'nt' else 'clear')
             return [vendedor, cliente, carro, tempo_garantia, data]
-    
+
     def relatorio(self, vendas: list):
         i = 0
         print("\nLISTA DE VENDAS:")
@@ -42,7 +42,7 @@ class VendaView():
                     vendedor_mais_carros = venda.vendedor
                 if venda.vendedor.receita_gerada > vendedor_maior_receita.receita_gerada:
                     vendedor_maior_receita = venda.vendedor
-            
+
             print("\n#Vendedor que mais vendeu carros: ")
             print("Nome: "+ vendedor_mais_carros.nome)
             print("Carros Vendidos: "+ str(vendedor_mais_carros.carros_vendidos))

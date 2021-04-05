@@ -5,7 +5,6 @@ from models.venda import Venda
 
 
 class Concessionaria:
-
     def __init__(self):
         self.__carros = [Carro("Chevrolet", "Sedan", 2019, 50000, 1),
                          Carro("Chevrolet", "Hatch", 2018, 40000, 2),
@@ -20,11 +19,11 @@ class Concessionaria:
                            Cliente("Antônio", "991405869", 105)]
         self.__vendedores = [Vendedor("Vendedor A", "991540932", 201), Vendedor("Vendedor B", "988128231", 202)]
         self.__vendas = []
-    
+
     @property
     def carros(self):
         return self.__carros
-    
+
     @property
     def clientes(self):
         return self.__clientes
@@ -32,7 +31,7 @@ class Concessionaria:
     @property
     def vendedores(self):
         return self.__vendedores
-    
+
     @property
     def vendas(self):
         return self.__vendas
@@ -52,6 +51,6 @@ class Concessionaria:
             self.__clientes.remove(objeto)
         if isinstance(objeto, Vendedor):
             self.__vendedores.remove(objeto)
-    
+
     def nova_venda(self, venda: Venda):
         self.__vendas.append(venda)
