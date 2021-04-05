@@ -10,7 +10,6 @@ class VendedorController():
 
     #Tela Principal de Vendedor
     def run(self):
-        print("Controlador de vendedor rodou")
         op_dict = {
                 "1" : self.cadastra,
                 "2" : self.lista,
@@ -29,7 +28,7 @@ class VendedorController():
         if info is not None:
             for vendedor in self.__concessionaria.vendedores:
                 if vendedor.num_id == info[2]:
-                    self.__view.erro()
+                    self.__view.erro("Vendedor já existe")
                     return
 
             vendedor = Vendedor(info[0], info[1], info[2])
@@ -41,12 +40,15 @@ class VendedorController():
 
     def atualiza(self):
         self.lista()
-        for vendedor in self.__concessionaria.vendedores:
-            if vendedor.num_id == self.__view.vendedor_id():
+        identificacao = self.__view.vendedor_id()
+        for vend in self.__concessionaria.vendedores:
+            if vend.num_id == identificacao:
                 info = self.__view.atualiza()
                 if info is not None:
-                    vendedor.nome = info[0]
-                    vendedor.telefone = info[1]
+                    vend.nome = info[0]
+                    vend.telefone = info[1]
+                    return
+        self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
         self.lista()
@@ -54,3 +56,6 @@ class VendedorController():
         for vendedor in self.__concessionaria.vendedores:
             if vendedor.num_id == num_id:
                 self.__concessionaria.remove_objeto(vendedor)
+                self.__view.sucesso()
+                return
+        self.__view.erro("Vendedor não encontrado")

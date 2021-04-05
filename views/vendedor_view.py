@@ -42,14 +42,14 @@ class VendedorView():
 
     def vendedor_id(self):
         try:
-            num_id = int(input("Numero de Identificação:"))
+            num_id = int(input("Digite o ID do vendedor a ser atualizado:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
         else:
             return num_id
 
     def atualiza(self):
-        print("\n-----------------------------------")
+        print("\n-------Atualização de Vendedor--------")
         nome = input("Nome do Vendedor:")
         telefone = input("Telefone do Vendedor:")
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -67,5 +67,5 @@ class VendedorView():
     def sucesso(self):
         print("Operação realizada com sucesso")
     
-    def erro(self):
-        print("\nERRO")
+    def erro(self, mensagem_erro: str):
+        print("\n" + mensagem_erro)
