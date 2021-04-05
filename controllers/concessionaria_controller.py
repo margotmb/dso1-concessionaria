@@ -12,6 +12,10 @@ class ConcessionariaController:
     def __init__(self):
         self.__concessionaria_model = Concessionaria()
         self.__concessionaria_view =  ConcessionariaView()
+        self.__vendedor_controller = VendedorController(self.__concessionaria_model)
+        self.__cliente_controller = ClienteController(self.__concessionaria_model)
+        self.__carro_controller = CarroController(self.__concessionaria_model)
+        self.__venda_controller = VendaController(self.__concessionaria_model)
 
     def run(self):
         op_main = "X"
@@ -23,20 +27,15 @@ class ConcessionariaController:
 
                 #Escolhendo Controlador - Gerenciamento
                 if op_manage == "1":
-                    vendedor_controller = VendedorController(self.__concessionaria_model)
-                    vendedor_controller.run()
+                    self.__vendedor_controller.run()
                 elif op_manage == "2":
-                    self.__cliente_controller = ClienteController(self.__concessionaria_model)
                     self.__cliente_controller.run()
                 elif op_manage == "3":
-                    self.__carro_controller = CarroController(self.__concessionaria_model)
                     self.__carro_controller.run()
             #Vendas
             elif op_main == "2":
-                venda_controller = VendaController(self.__concessionaria_model)
-                venda_controller.nova_venda()
-            
+                self.__venda_controller.nova_venda()
             #Relatório
             elif op_main == "3":
-                venda_controller = VendaController(self.__concessionaria_model)
-                venda_controller.relatorio()
+                self.__venda_controller.relatorio()
+            
