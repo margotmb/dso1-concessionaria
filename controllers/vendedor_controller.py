@@ -30,7 +30,9 @@ class VendedorController():
                 if vendedor.num_id == info[2]:
                     self.__view.erro("Vendedor já existe")
                     return
-
+                if vendedor.telefone == info[1]:
+                    self.__view.erro("Telefone já existe no sistema")
+                    return
             vendedor = Vendedor(info[0], info[1], info[2])
             self.__concessionaria.cadastra_objeto(vendedor)
             self.__view.sucesso()

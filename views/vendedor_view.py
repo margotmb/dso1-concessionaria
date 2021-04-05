@@ -17,17 +17,21 @@ class VendedorView():
         return opcao
 
     def cadastra(self):
+        print("-----Cadastramento de Vendedor-----")
         nome = input("Nome do Vendedor:")
         telefone = input("Telefone do Vendedor:")
         try:
             num_id = int(input("Numero de Identificação:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
+            return None
         else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            return [nome, telefone, num_id]
+            if telefone.isdecimal():
+                os.system('cls' if os.name == 'nt' else 'clear')
+                return [nome, telefone, num_id]
+            else:
+                print("Telefone Inválido")
 
-    
     def lista(self, lista):
         os.system('cls' if os.name == 'nt' else 'clear')
         i = 0
@@ -45,6 +49,7 @@ class VendedorView():
             num_id = int(input("Digite o ID do vendedor a ser atualizado:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
+            return 0
         else:
             return num_id
 
@@ -56,12 +61,13 @@ class VendedorView():
         return [nome, telefone]
 
     def remove(self):
+        print("-----Remoção de Vendedor-----")
         try:
-            num_id = int(input("ID do vendedor:"))
+            num_id = int(input("Digite o ID do vendedor:"))
         except ValueError as e:
             print('\nERRO: Caracter inválido: {}'.format(e))
             return 0
-        else:    
+        else:
             return num_id
 
     def sucesso(self):
