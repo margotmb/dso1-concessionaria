@@ -7,12 +7,17 @@ from models.venda import Venda
 class Concessionaria:
 
     def __init__(self):
-        self.__carros = [Carro("Sedan", 2010, 50000, 1)]
-        self.__clientes = [Cliente("José", "1231231231", 1000000, 101),
-                           Cliente("José", "1231231231", 1000000, 102),
-                           Cliente("José", "1231231231", 1000000, 103),
-                           Cliente("José", "1231231231", 1000000, 104),
-                           Cliente("José", "1231231231", 1000000, 105)]
+        self.__carros = [Carro("Chevrolet", "Sedan", 2019, 50000, 1),
+                         Carro("Chevrolet", "Hatch", 2018, 40000, 2),
+                         Carro("Ford", "Hatch", 2020, 45000, 3),
+                         Carro("Hyundai", "Hatch", 2020, 45000, 4),
+                         Carro("Toyota", "Sedan", 2019, 60000, 5),
+                         Carro("Ford", "Pickup", 2021, 80000, 6)]
+        self.__clientes = [Cliente("Márcio", "988144896", 101),
+                           Cliente("João", "991168765", 102),
+                           Cliente("Aline", "988148696", 103),
+                           Cliente("Ana", "975148571", 104),
+                           Cliente("Antônio", "991405869", 105)]
         self.__vendedores = [Vendedor("Vendedor 1", "1231231", 201), Vendedor("Vendedor 2", "12312312", 202)]
         self.__vendas = []
     
