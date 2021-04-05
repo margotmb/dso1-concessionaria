@@ -28,6 +28,7 @@ class VendaView():
             print("Vendedor: " + venda.vendedor.nome)
             print("Cliente: "+ venda.cliente.nome)
             print("Carro: "+ venda.carro.modelo +" - "+ str(venda.carro.ano))
+            print("Valor: R$" + str(venda.carro.valor))
             print("-----------------------------------")
             i += 1
         try:
@@ -42,13 +43,13 @@ class VendaView():
                 if venda.vendedor.receita_gerada > vendedor_maior_receita.receita_gerada:
                     vendedor_maior_receita = venda.vendedor
             
-            print("\nVendedor que mais vendeu carros: ")
+            print("\n#Vendedor que mais vendeu carros: ")
             print("Nome: "+ vendedor_mais_carros.nome)
             print("Carros Vendidos: "+ str(vendedor_mais_carros.carros_vendidos))
 
-            print("\nVendedor que mais gerou receita: ")
+            print("\n#Vendedor que mais gerou receita: ")
             print("Nome: " + vendedor_maior_receita.nome)
-            print("Receita Gerada: " + str(vendedor_maior_receita.receita_gerada))
+            print("Receita Gerada: R$" + str(vendedor_maior_receita.receita_gerada))
 
     def venda_bem_sucedida(self):
         print("Venda bem sucedida")
