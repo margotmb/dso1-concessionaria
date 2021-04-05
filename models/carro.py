@@ -1,6 +1,7 @@
 class Carro:
 
-    def __init__(self, modelo: str, ano: int, valor: float, num_id: int):
+    def __init__(self, marca: str, modelo: str, ano: int, valor: float, num_id: int):
+        self.__marca = marca
         self.__modelo = modelo
         self.__ano = ano
         self.__valor = valor
