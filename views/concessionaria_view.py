@@ -12,6 +12,7 @@ class ConcessionariaView:
         print("1 - Gerenciamento")
         print("2 - Venda")
         print("3 - Relatório")
+        print("0 - Sair")
         print("-----------------------------------")
         opcao = input("Opção: ")
         return opcao
