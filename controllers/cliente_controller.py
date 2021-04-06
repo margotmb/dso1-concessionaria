@@ -3,8 +3,8 @@ from models.cliente import Cliente
 from views.cliente_view import ClienteView
 
 class ClienteController():
-    def __init__(self, concessionaria: Concessionaria):
-        self.__concessionaria = concessionaria
+    def __init__(self, model: Concessionaria):
+        self.__concessionaria_model = model
         self.__cliente_view = ClienteView()
 
     #Tela Principal de Cliente

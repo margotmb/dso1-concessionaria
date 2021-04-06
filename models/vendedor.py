@@ -13,6 +13,10 @@ class Vendedor(Pessoa):
     def num_id(self):
         return self.__num_id
 
+    @num_id.setter
+    def num_id(self, num_id: int):
+         self.__num_id = num_id
+
     @property
     def carros_vendidos(self):
         return self.__carros_vendidos
