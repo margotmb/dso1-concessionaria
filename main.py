@@ -3,5 +3,4 @@ import os
 
 
 controlador = ConcessionariaController()
-os.system('cls')
 controlador.run()
