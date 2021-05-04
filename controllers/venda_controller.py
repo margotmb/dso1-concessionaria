@@ -7,6 +7,7 @@ class VendaController():
     def __init__(self, concessionaria: Concessionaria):
         self.__concessionaria = concessionaria
         self.__view = VendaView()
+        self.__counter = 0
 
     def nova_venda(self):
         info = self.__view.tela_de_vendas()
@@ -38,7 +39,8 @@ class VendaController():
             vendedor.receita_gerada = vendedor.receita_gerada + carro.valor
             garantia = info[3]
             data = info[4]
-            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, garantia, data))
+            self.__counter += 1
+            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, garantia, data), self.__counter)
             self.__view.venda_bem_sucedida()
 
     def relatorio(self):
