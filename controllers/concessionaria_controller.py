@@ -28,7 +28,7 @@ class ConcessionariaController:
                 "1" : self.gerenciamento,
                 "2" : self.__venda_controller.nova_venda,
                 "3" : self.__venda_controller.relatorio,
-                #"4" : self.edit_concessionaria
+                "4" : self.edit_concessionaria
         }
         op_main = self.__concessionaria_view.tela_principal(self.__concessionaria_model.nome, self.__concessionaria_model.endereco, self.__concessionaria_model.cnpj)
 
@@ -52,9 +52,9 @@ class ConcessionariaController:
             return
         
 
-    # def edit_concessionaria(self):
-    #     new_info = self.__concessionaria_view.tela_edicao(self.__concessionaria_model.nome, self.__concessionaria_model.endereco, self.__concessionaria_model.cnpj)
-    #     self.__concessionaria_model.nome = new_info[0]
-    #     self.__concessionaria_model.endereco = new_info[1]
-    #     self.__concessionaria_model.cnpj = new_info[2]
-    #     self.__concessionaria_DAO.add(self.__concessionaria_model)        
+    def edit_concessionaria(self):
+        new_info = self.__concessionaria_view.tela_edicao(self.__concessionaria_model.nome, self.__concessionaria_model.endereco, self.__concessionaria_model.cnpj)
+        self.__concessionaria_model.nome = new_info[0]
+        self.__concessionaria_model.endereco = new_info[1]
+        self.__concessionaria_model.cnpj = new_info[2]
+        self.__concessionaria_DAO.add(self.__concessionaria_model)        
