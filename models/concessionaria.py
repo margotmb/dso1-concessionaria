@@ -10,6 +10,9 @@ from models.vendaDAO import VendaDAO
 
 class Concessionaria:
     def __init__(self):
+        self.__nome = '<nome>'
+        self.__endereco = '<endereco>'
+        self.__cnpj = '<cnpj>'
         self.__carro_DAO = CarroDAO()
         # self.__carros = [Carro("Chevrolet", "Sedan", 2019, 50000, 1),
         #                  Carro("Chevrolet", "Hatch", 2018, 40000, 2),
@@ -26,6 +29,30 @@ class Concessionaria:
         self.__vendedor_DAO = VendedorDAO()
         #self.__vendedores = [Vendedor("Vendedor A", "991540932", 201), Vendedor("Vendedor B", "988128231", 202)]
         self.__venda_DAO = VendaDAO()
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, nome):
+        self.__nome = nome
+
+    @property
+    def endereco(self):
+        return self.__endereco
+
+    @endereco.setter
+    def endereco(self, endereco):
+        self.__endereco = endereco
+
+    @property
+    def cnpj(self):
+        return self.__cnpj
+    
+    @cnpj.setter
+    def cnpj(self, cnpj):
+        self.__cnpj = cnpj
 
     @property
     def carros(self):
