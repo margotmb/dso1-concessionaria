@@ -29,7 +29,7 @@ class AbstractDAO(ABC):
         try:
             return self.__cache[key]
         except KeyError:
-            pass
+            return None
 
     # remove o objeto do dicionario e atualiza o arquivo
     def remove(self, key):
@@ -37,7 +37,7 @@ class AbstractDAO(ABC):
             self.__cache.pop(key)
             self.__dump()
         except KeyError:
-            pass
+            return None
 
     def get_all(self):
         return self.__cache.values()
