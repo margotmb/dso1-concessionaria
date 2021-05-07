@@ -1,11 +1,11 @@
-from models.concessionaria import Concessionaria
 from models.vendedor import Vendedor
 from views.vendedor_view import VendedorView
+from models.vendedorDAO import VendedorDAO
 
 
 class VendedorController():
-    def __init__(self, concessionaria: Concessionaria):
-        self.__concessionaria = concessionaria
+    def __init__(self):
+        self.__vendedorDAO = VendedorDAO()
         self.__view = VendedorView()
 
     #Tela Principal de Vendedor
@@ -23,42 +23,58 @@ class VendedorController():
             opcao = self.__view.tela_principal()
 
     def cadastra(self):
-        info = self.__view.cadastra()
-
+        info = self.__view.tela_cadastra()
+        vendedores = list(self.__vendedorDAO.get_all())
         if info is not None:
-            for vendedor in self.__concessionaria.vendedores:
+            for vendedor in vendedores:
+
                 if vendedor.num_id == info[2]:
                     self.__view.erro("Vendedor já existe")
                     return
+
                 if vendedor.telefone == info[1]:
+                    #criar exceção
                     self.__view.erro("Telefone já existe no sistema")
                     return
-            vendedor = Vendedor(info[0], info[1], info[2])
-            self.__concessionaria.cadastra_objeto(vendedor)
+
+            vendedor = Vendedor(info[1], info[2], info[0])
+            print(type(info[2]))
+            self.__vendedorDAO.add(vendedor)
             self.__view.sucesso()
 
     def lista(self):
-        self.__view.lista(self.__concessionaria.vendedores)
+        vendedores = list(self.__vendedorDAO.get_all())
+        self.__view.lista(vendedores)
 
     def atualiza(self):
-        self.lista()
-        identificacao = self.__view.vendedor_id()
-        for vend in self.__concessionaria.vendedores:
+        vendedores = list(self.__vendedorDAO.get_all())
+        identificacao = self.__view.vendedor_id(vendedores)
+        
+        for vend in vendedores:
             if vend.num_id == identificacao:
-                info = self.__view.atualiza()
+                info = self.__view.atualiza(vend.nome, vend.telefone)
+
                 if info is not None:
                     vend.nome = info[0]
                     vend.telefone = info[1]
                     self.__view.sucesso()
                     return
+
         self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
-        self.lista()
-        num_id = self.__view.remove()
-        for vendedor in self.__concessionaria.vendedores:
-            if vendedor.num_id == num_id:
-                self.__concessionaria.remove_objeto(vendedor)
-                self.__view.sucesso()
-                return
-        self.__view.erro("Vendedor não encontrado")
+        vendedores = list(self.__vendedorDAO.get_all())
+        num_id = self.__view.remove(vendedores)
+
+        if num_id is not None:
+            for vendedor in vendedores:
+                if vendedor.num_id == num_id:
+                    self.__vendedorDAO.remove(vendedor.num_id)
+                    self.__view.sucesso()
+                    return
+
+            self.__view.erro("Vendedor não encontrado")
+            self.remove()
+
+    def lista_vendedores(self):
+        return list(self.__vendedorDAO.get_all())

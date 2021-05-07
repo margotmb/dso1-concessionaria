@@ -1,11 +1,14 @@
-from models.concessionaria import Concessionaria
+from models.vendaDAO import VendaDAO
 from models.venda import Venda
 from views.venda_view import VendaView
 
 
 class VendaController():
-    def __init__(self, concessionaria: Concessionaria):
-        self.__concessionaria = concessionaria
+    def __init__(self, lista_vendedores, lista_clientes, lista_carros):
+        self.__vendedores = lista_vendedores
+        self.__clientes = lista_clientes
+        self.__carros = lista_carros
+        self.__vendaDAO = VendaDAO()
         self.__view = VendaView()
         self.__counter = 0
 
@@ -20,15 +23,15 @@ class VendaController():
         cliente = None
         carro = None
 
-        for vend in self.__concessionaria.vendedores:
+        for vend in self.__vendedores:
                 if vend.num_id == info[0]:
                     vendedor = vend
                     #print("ID Vendedor:" + str(vend.num_id))
-        for cli in self.__concessionaria.clientes:
+        for cli in self.__clientes:
                 if cli.num_id == info[1]:
                     cliente = cli
                     #print("ID Cliente:" + str(cli.num_id))
-        for car in self.__concessionaria.carros:
+        for car in self.__carros:
                 if car.num_id == info[2]:
                     carro = car
                     #print ("ID Carro:" + str(carro.num_id))
@@ -40,8 +43,8 @@ class VendaController():
             garantia = info[3]
             data = info[4]
             self.__counter += 1
-            self.__concessionaria.nova_venda(Venda(vendedor, cliente, carro, garantia, data), self.__counter)
+            self.__vendaDAO.add(Venda(vendedor, cliente, carro, garantia, data), self.__counter)
             self.__view.venda_bem_sucedida()
 
     def relatorio(self):
-        self.__view.relatorio(self.__concessionaria.vendas)
+        self.__view.relatorio(list(self.__vendaDAO.get_all()))
