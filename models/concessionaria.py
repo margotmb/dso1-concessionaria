@@ -8,21 +8,7 @@ class Concessionaria:
     def __init__(self):
         self.__nome = '<nome>'
         self.__endereco = '<endereco>'
-        self.__cnpj = '<cnpj'
-        # self.__carros = [Carro("Chevrolet", "Sedan", 2019, 50000, 1),
-        #                  Carro("Chevrolet", "Hatch", 2018, 40000, 2),
-        #                  Carro("Ford", "Hatch", 2020, 45000, 3),
-        #                  Carro("Hyundai", "Hatch", 2020, 45000, 4),
-        #                  Carro("Toyota", "Sedan", 2019, 60000, 5),
-        #                  Carro("Ford", "Pickup", 2021, 80000, 6)]
-        # self.__clientes = [Cliente("Márcio", "988144896", 101),
-        #                    Cliente("João", "991168765", 102),
-        #                    Cliente("Aline", "988148696", 103),
-        #                    Cliente("Ana", "975148571", 104),
-        #                    Cliente("Antônio", "991405869", 105)]
-        
-        #self.__vendedores = [Vendedor("Vendedor A", "991540932", 201), Vendedor("Vendedor B", "988128231", 202)]
-        
+        self.__cnpj = '<cnpj>'
 
     @property
     def nome(self):
