@@ -18,11 +18,11 @@ class ConcessionariaController:
 
     def run(self):
         op_dict_main = {
-                "1" : self.gerenciamento,
-                "2" : self.__venda_controller.nova_venda,
-                "3" : self.__venda_controller.relatorio
+                "Gerenciamento" : self.gerenciamento,
+                "Vendas" : self.__venda_controller.nova_venda,
+                "Relatório" : self.__venda_controller.relatorio,
                 #"4" : self.edit_concessionaria,
-                #"0" : self.sair
+                "Sair" : self.sair
         }
         op_main = self.__concessionaria_view.tela_principal()
 
@@ -33,9 +33,9 @@ class ConcessionariaController:
 
     def gerenciamento(self):
         op_dict = {
-            "1": self.__vendedor_controller.run,
-            "2": self.__cliente_controller.run,
-            "3": self.__carro_controller.run
+            "Vendedores": self.__vendedor_controller.run,
+            "Clientes": self.__cliente_controller.run,
+            "Carros": self.__carro_controller.run
         }
 
         op_manage = self.__concessionaria_view.tela_gerenciamento()
@@ -45,9 +45,8 @@ class ConcessionariaController:
         except KeyError:
             return
         
-    # def sair(self):
-    #     self.__concessionaria_DAO.add(self.__concessionaria_DAO)
-    #     exit()
+    def sair(self):
+        exit()
     # def edit_concessionaria(self):
     #     new_info = self.__concessionaria_view.tela_edicao(self.__concessionaria_model.nome, self.__concessionaria_model.endereco, self.__concessionaria_model.cnpj)
     #     self.__concessionaria_model.nome = new_info[0]

@@ -10,19 +10,18 @@ class ConcessionariaView:
     def tela_principal(self):
         sg.theme('Purple')
         layout = [
-            [sg.Text("Concessionária ", justification='center', size=(25,1), font='Courier 15', background_color='pink', relief='sunken')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Gerenciamento", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Venda", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Relatorio", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Concessionaria", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair", font='Courier 12', background_color='pink')],
+            [sg.Text("Concessionária ", justification='center', size=(20,1), font='Courier 15', background_color='pink', relief='sunken')],
+            [sg.Button(button_text="Gerenciamento", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Venda", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Relatorio", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Concessionaria",  font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Sair", font='Courier 12', size=(23,3))],
             # [sg.Text("Endereço: " + endereco, size=(40,1), justification='right', font='Courier 10', background_color='pink', pad=((3, 0),(50,0)))],
             # [sg.Text("CNPJ: " + cnpj, size=(40,1), justification='right', font='Courier 10', background_color='pink',pad=((3, 0),(0,0)))]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         
         button = window.read()[0]
-        print(button)
         window.close()
         return button
 
@@ -30,27 +29,26 @@ class ConcessionariaView:
     def tela_gerenciamento(self):
         layout = [
             [sg.Text("Gerenciamento", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Vendedores", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Clientes", font='Courier 12', background_color='pink'), ],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Carros", font='Courier 12', background_color='pink'), ],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Voltar", font='Courier 12', background_color='pink')]
+            [sg.Button(button_text="Vendedores", font='Courier 12', size=(24,3))],
+            [sg.Button(button_text="Clientes", font='Courier 12', size=(24,3))],
+            [sg.Button(button_text="Carros", font='Courier 12', size=(24,3))],
+            [sg.Button(button_text="Voltar", font='Courier 12', size=(24,3))]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         
-        button,values = window.read()
-        print(button, values)
+        button = window.read()[0]
         window.close()
         return button
     
-    def tela_edicao(self, nome, endereco, cnpj):
-        layout = [
-            [sg.Text("Gerenciamento", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
-            [sg.Text("Nome: "), sg.InputText(default_text=nome, size=(21,1))],
-            [sg.Text("Endereço: "), sg.InputText(default_text=endereco, size=(21,1))],
-            [sg.Text("CNPJ: "), sg.InputText(default_text=cnpj, size=(21,1))],
-            [sg.Button('Submit'), sg.Button('Voltar')]
-        ]
-        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
-        values = window.read()[1]
-        window.close()
-        return values
+    # def tela_edicao(self, nome, endereco, cnpj):
+    #     layout = [
+    #         [sg.Text("Gerenciamento", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
+    #         [sg.Text("Nome: "), sg.InputText(default_text=nome, size=(21,1))],
+    #         [sg.Text("Endereço: "), sg.InputText(default_text=endereco, size=(21,1))],
+    #         [sg.Text("CNPJ: "), sg.InputText(default_text=cnpj, size=(21,1))],
+    #         [sg.Button('Submit'), sg.Button('Voltar')]
+    #     ]
+    #     window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+    #     values = window.read()[1]
+    #     window.close()
+    #     return values
