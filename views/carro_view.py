@@ -1,4 +1,5 @@
 import os
+import PySimpleGUI as sg
 
 
 class CarroView():
@@ -6,16 +7,20 @@ class CarroView():
         pass
 
     def tela_principal(self):
-        print("\n---- Gerenciamento de Carros ----")
-        print("1 - Cadastrar")
-        print("2 - Listar")
-        print("3 - Atualizar")
-        print("4 - Remover")
-        print("0 - Sair")
-        print("-----------------------------------")
-        opcao = input("Opção: ")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        return opcao
+        layout = [
+            [sg.Text("----Carros----", justification='center',size=(20,1))],
+            [sg.Button(button_text="1"), sg.Text(" <- Cadastrar")],
+            [sg.Button(button_text="2"), sg.Text(" <- Listar")],
+            [sg.Button(button_text="3"), sg.Text(" <- Atualizar")],
+            [sg.Button(button_text="4"), sg.Text(" <- Remover")],
+            [sg.Button(button_text="0"), sg.Text(" <- Sair")]
+        ]
+        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+        
+        button,values = window.read()
+        print(button, values)
+        window.close()
+        return button
 
     def cadastra(self):
         print("-----Cadastramento de Carro-----")
@@ -35,7 +40,7 @@ class CarroView():
     def lista(self, lista):
         os.system('cls' if os.name == 'nt' else 'clear')
         i = 0
-        print("\nLISTA DE carroS:")
+        print("\nLISTA DE CARROS:")
         for carro in lista:
             print("#" + str(i))
             print("Marca: " + carro.marca)
@@ -84,4 +89,3 @@ class CarroView():
     
     def erro(self, mensagem_erro: str):
         print("\n" + mensagem_erro)
-

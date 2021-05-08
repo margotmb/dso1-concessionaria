@@ -21,7 +21,7 @@ class VendaView():
             return [vendedor, cliente, carro, tempo_garantia, data]
 
     def relatorio(self, vendas: list):
-        i = 0
+        i = 1
         print("\nLISTA DE VENDAS:")
         for venda in vendas:
             print("#" + str(i))
