@@ -9,11 +9,11 @@ class ClienteView(AbstractViewCRUD):
     def tela_principal(self):
         layout = [
             [sg.Text("----Clientes----", justification='center', size=(20,1), font='Courier 15', background_color='pink')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Cadastrar")],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Listar")],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Atualizar")],
-            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Remover")],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair")]
+            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Cadastrar", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Listar", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Atualizar", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Remover", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair", font='Courier 12', background_color='pink')]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         values = window.read()
@@ -23,7 +23,7 @@ class ClienteView(AbstractViewCRUD):
     def cadastra(self):
         layout = [
                 [sg.Text("Informações do Cliente:")],
-                [sg.Text('ID: ', size=(18,1)), sg.InputText()],
+                [sg.Text('ID: ', size=(18,1)), sg.InputText(size=(5,1))],
                 [sg.Text('Nome: ', size=(18, 1)), sg.InputText()],
                 [sg.Text('Telefone: ', size=(18, 1)), sg.InputText()],
                 [sg.Submit(),sg.Button('Voltar')]
@@ -72,20 +72,22 @@ class ClienteView(AbstractViewCRUD):
         lista = self.gera_lista_dados(clientes)
         return super().tela_input_id(lista, "ATUALIZAÇÃO DE CLIENTES")
 
-    def atualiza(self, nome: str, telefone: str):
+    def atualiza(self, nome: str, telefone: str, num_id: int):
         layout = [
             [sg.Text("Atualização de Cliente", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
+            [sg.Text("ID: " + str(num_id), background_color='pink')],
             [sg.Text("Nome: "), sg.InputText(default_text=nome, size=(21,1))],
             [sg.Text("Telefone: "), sg.InputText(default_text=telefone, size=(21,1))],
             [sg.Button('Submit'), sg.Button('Voltar')]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
-        values = window.read()
+        button,values = window.read()
         window.close()
-        return values[1]
+        if button == "Submit":
+            return values
+        else:
+            return None 
 
     def remove(self, clientes: list):
         lista = self.gera_lista_dados(clientes)
         return super().tela_input_id(lista, "REMOÇÃO DE CLIENTE")
-
-

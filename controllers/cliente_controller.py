@@ -48,20 +48,25 @@ class ClienteController():
         self.__view.lista(clientes)
 
     def atualiza(self):
+        encontrado = False
         clientes = list(self.__clienteDAO.get_all())
         num_id = self.__view.cliente_id(clientes)
 
-        for cliente in clientes:
-            if cliente.num_id == num_id:
-                dados = self.__view.atualiza(cliente.nome, cliente.telefone)
-                if dados is not None:
-                    cliente.nome = dados[0]
-                    cliente.telefone = dados[1]
-                    self.__clienteDAO.add(cliente)
-                    self.__view.sucesso()
-                    return
-        if num_id is not None:
-            self.__view.erro("Cliente não encontrado")
+        if num_id != None:
+            for cliente in clientes:
+                if cliente.num_id == num_id:
+                    dados = self.__view.atualiza(cliente.nome, cliente.telefone, cliente.num_id)
+                    if dados is not None:
+                        cliente.nome = dados[0]
+                        cliente.telefone = dados[1]
+                        self.__clienteDAO.add(cliente)
+                        self.__view.sucesso()
+                        encontrado = True
+                    else:
+                        #Caso aperte voltar ou X
+                        return
+            if not encontrado:
+                self.__view.erro("Cliente não encontrado")
 
     def remove(self):
         clientes = list(self.__clienteDAO.get_all())

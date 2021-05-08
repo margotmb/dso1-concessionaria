@@ -58,6 +58,8 @@ class AbstractViewCRUD(ABC):
                 else:
                     window.close()
                     return values[0]
+            else:
+                return None
 
         window.close()
     
