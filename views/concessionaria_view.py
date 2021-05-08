@@ -10,12 +10,12 @@ class ConcessionariaView:
     def tela_principal(self):
         sg.theme('Purple')
         layout = [
-            [sg.Text("Concessionária ", justification='center',size=(25,1), font='Courier 15', background_color='pink', relief='sunken')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Gerenciamento")],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Venda")],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Relatorio")],
-            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Concessionaria")],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair")],
+            [sg.Text("Concessionária ", justification='center', size=(25,1), font='Courier 15', background_color='pink', relief='sunken')],
+            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Gerenciamento", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Venda", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Relatorio", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Concessionaria", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair", font='Courier 12', background_color='pink')],
             # [sg.Text("Endereço: " + endereco, size=(40,1), justification='right', font='Courier 10', background_color='pink', pad=((3, 0),(50,0)))],
             # [sg.Text("CNPJ: " + cnpj, size=(40,1), justification='right', font='Courier 10', background_color='pink',pad=((3, 0),(0,0)))]
         ]
@@ -30,10 +30,10 @@ class ConcessionariaView:
     def tela_gerenciamento(self):
         layout = [
             [sg.Text("Gerenciamento", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Vendedores")],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Clientes"), ],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Carros"), ],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Voltar")]
+            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Vendedores", font='Courier 12', background_color='pink')],
+            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Clientes", font='Courier 12', background_color='pink'), ],
+            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Carros", font='Courier 12', background_color='pink'), ],
+            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Voltar", font='Courier 12', background_color='pink')]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         
