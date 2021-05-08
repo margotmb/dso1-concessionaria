@@ -23,17 +23,25 @@ class CarroController():
     def cadastra(self):
         dados = self.__view.cadastra()
         carros = list(self.__carroDAO.get_all())
+
         if dados is not None:
             for carro in carros:
-
                 if carro.num_id == dados[0]:
                     self.__view.erro("Carro já existe")
                     return
-                    
+
+               
             #Marca, Modelo, Ano, Valor, ID
-            carro = Carro(dados[1], dados[2], dados[3], dados[4], dados[0])
-            self.__carroDAO.add(carro)
-            self.__view.sucesso()
+            try:
+                dados[3] = int(dados[3])
+                dados[4] = float(dados[4])
+                dados[0] = int(dados[0])
+            except ValueError:
+                self.__view.erro("DADO INVÁLIDO")
+            else:
+                carro = Carro(dados[1], dados[2], dados[3], dados[4], dados[0])
+                self.__carroDAO.add(carro)
+                self.__view.sucesso()
 
     def lista(self):
         carros = list(self.__carroDAO.get_all())
@@ -51,8 +59,8 @@ class CarroController():
                     if dados is not None:
                         car.marca = dados[0]
                         car.modelo = dados[1]
-                        car.ano = dados[2]
-                        car.valor = dados[3]
+                        car.ano = int(dados[2])
+                        car.valor = float(dados[3])
                         self.__carroDAO.add(car)
                         self.__view.sucesso()
                         return
@@ -76,4 +84,5 @@ class CarroController():
             self.remove()
     
     def lista_carros(self):
-        return list(self.__carroDAO.get_all())
+        lista = list(self.__carroDAO.get_all())
+        return lista

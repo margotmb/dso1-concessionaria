@@ -53,7 +53,7 @@ class AbstractViewCRUD(ABC):
                 try:
                     values[0] = int(values[0])
                 except ValueError:
-                    self.erro('\nERRO: Dado Inválido')
+                    self.erro('\nERRO: ID Inválido')
                     return None
                 else:
                     return values[0]

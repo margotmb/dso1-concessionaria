@@ -31,7 +31,7 @@ class CarroView(AbstractViewCRUD):
                 [sg.Text('Valor: R$ ', size=(18, 1)), sg.InputText()],
                 [sg.Submit(),sg.Button('Voltar')]
         ]
-        return super().cadastra(layout, "Novo Vendedor")
+        return super().cadastra(layout, "Novo Carro")
 
     def lista(self, carros: list):
         layout = [
@@ -48,8 +48,8 @@ class CarroView(AbstractViewCRUD):
                 num_id = "ID: " + str(item.num_id)
                 marca = "Marca: " + item.marca
                 modelo = "Modelo: " + item.modelo
-                ano = "Ano: " + item.ano
-                valor = "Valor: R$" + item.valor
+                ano = "Ano: " + str(item.ano)
+                valor = "Valor: R$" + str(item.valor)
                 lista.extend([num_id, marca, modelo, ano, valor, "\n"])
 
             window.FindElement('_output_').Update('')
@@ -65,8 +65,8 @@ class CarroView(AbstractViewCRUD):
             num_id = "ID: " + str(item.num_id)
             marca = "Marca: " + item.marca
             modelo = "Modelo: " + item.modelo
-            ano = "Ano: " + item.ano
-            valor = "Valor: R$" + item.valor
+            ano = "Ano: " + str(item.ano)
+            valor = "Valor: R$" + str(item.valor)
             lista.extend([num_id, marca, modelo, ano, valor, "\n"])
 
         return lista

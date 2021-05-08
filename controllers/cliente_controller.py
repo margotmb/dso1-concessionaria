@@ -78,4 +78,5 @@ class ClienteController():
             self.__view.erro("Cliente não encontrado")
     
     def lista_clientes(self):
-        return list(self.__clienteDAO.get_all())
+        lista = list(self.__clienteDAO.get_all())
+        return lista

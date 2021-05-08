@@ -14,19 +14,19 @@ class ConcessionariaController:
         self.__vendedor_controller = VendedorController()
         self.__cliente_controller = ClienteController()
         self.__carro_controller = CarroController()
-        self.__venda_controller = VendaController(self.__vendedor_controller.lista_vendedores, self.__cliente_controller.lista_clientes, self.__carro_controller.lista_carros)
+        self.__venda_controller = VendaController(self.__vendedor_controller.lista_vendedores(), self.__cliente_controller.lista_clientes(), self.__carro_controller.lista_carros())
 
     def run(self):
         op_dict_main = {
                 "Gerenciamento" : self.gerenciamento,
-                "Vendas" : self.__venda_controller.nova_venda,
-                "Relatório" : self.__venda_controller.relatorio,
+                "Venda" : self.__venda_controller.nova_venda,
+                "Relatorio" : self.__venda_controller.relatorio,
                 #"4" : self.edit_concessionaria,
                 "Sair" : self.sair
         }
         op_main = self.__concessionaria_view.tela_principal()
 
-        while op_main!= "0":
+        while op_main!= "Sair":
             func = op_dict_main[op_main]
             func()
             op_main = self.__concessionaria_view.tela_principal()

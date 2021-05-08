@@ -80,4 +80,5 @@ class VendedorController():
             self.remove()
 
     def lista_vendedores(self):
-        return list(self.__vendedorDAO.get_all())
+        lista = list(self.__vendedorDAO.get_all())
+        return lista
