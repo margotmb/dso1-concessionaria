@@ -47,7 +47,6 @@ class VendedorController():
         self.__view.lista(vendedores)
 
     def atualiza(self):
-        encontrado = False
         vendedores = list(self.__vendedorDAO.get_all())
         num_id = self.__view.vendedor_id(vendedores)
 
@@ -60,12 +59,11 @@ class VendedorController():
                         vend.telefone = dados[1]
                         self.__vendedorDAO.add(vend)
                         self.__view.sucesso()
-                        encontrado == True
+                        return
                     else:
                         #Caso aperte voltar ou X
                         return
-            if not encontrado:
-                self.__view.erro("Vendedor não encontrado")
+            self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
         vendedores = list(self.__vendedorDAO.get_all())

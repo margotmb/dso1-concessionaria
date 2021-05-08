@@ -48,15 +48,14 @@ class AbstractViewCRUD(ABC):
 
             #Enviar ID
             button, values = window.Read()
+            window.close()
             if button == 'Submit':
                 try:
                     values[0] = int(values[0])
                 except ValueError:
                     self.erro('\nERRO: Dado Inválido')
-                    window.close()
                     return None
                 else:
-                    window.close()
                     return values[0]
             else:
                 return None

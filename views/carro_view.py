@@ -24,7 +24,7 @@ class CarroView(AbstractViewCRUD):
     def cadastra(self):
         layout = [
                 [sg.Text("Informações do Carro:")],
-                [sg.Text('ID: ', size=(5,1)), sg.InputText(size=(5,1))],
+                [sg.Text('ID: ', size=(18,1)), sg.InputText(size=(5,1))],
                 [sg.Text('Marca: ', size=(18, 1)), sg.InputText()],
                 [sg.Text('Modelo: ', size=(18, 1)), sg.InputText()],
                 [sg.Text('Ano: ', size=(18, 1)), sg.InputText()],
@@ -38,13 +38,13 @@ class CarroView(AbstractViewCRUD):
                 [sg.Output(size=(40,30), key="_output_")],
                 [sg.Button('Listar'), sg.Button('Voltar')],
         ]  
-        window = sg.Window('Listagem - Vendedores').Layout(layout)
+        window = sg.Window('Listagem - Carros').Layout(layout)
         button = window.Read(timeout=5)
 
         #Loop da Janela
         while button[0] != 'Voltar':
             lista = []
-            for item in lista:
+            for item in carros:
                 num_id = "ID: " + str(item.num_id)
                 marca = "Marca: " + item.marca
                 modelo = "Modelo: " + item.modelo
@@ -61,7 +61,7 @@ class CarroView(AbstractViewCRUD):
 
     def gera_lista_dados(self, carros: list):
         lista = []
-        for item in lista:
+        for item in carros:
             num_id = "ID: " + str(item.num_id)
             marca = "Marca: " + item.marca
             modelo = "Modelo: " + item.modelo

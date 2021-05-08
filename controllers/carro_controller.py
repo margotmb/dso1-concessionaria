@@ -22,11 +22,11 @@ class CarroController():
 
     def cadastra(self):
         dados = self.__view.cadastra()
-        vendedores = list(self.__carroDAO.get_all())
+        carros = list(self.__carroDAO.get_all())
         if dados is not None:
-            for vendedor in vendedores:
+            for carro in carros:
 
-                if vendedor.num_id == dados[0]:
+                if carro.num_id == dados[0]:
                     self.__view.erro("Carro já existe")
                     return
                     
@@ -40,7 +40,6 @@ class CarroController():
         self.__view.lista(carros)
 
     def atualiza(self):
-        encontrado = False
         carros = list(self.__carroDAO.get_all())
         num_id = self.__view.carro_id(carros)
 
@@ -56,12 +55,11 @@ class CarroController():
                         car.valor = dados[3]
                         self.__carroDAO.add(car)
                         self.__view.sucesso()
-                        encontrado == True
+                        return
                     else:
                         #Caso aperte voltar ou X
                         return
-            if not encontrado:
-                self.__view.erro("Vendedor não encontrado")
+            self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
         carros = list(self.__carroDAO.get_all())
