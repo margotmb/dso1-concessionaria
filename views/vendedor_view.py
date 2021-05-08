@@ -31,11 +31,45 @@ class VendedorView(AbstractViewCRUD):
         return super().cadastra(layout, "Novo Vendedor")
 
     def lista(self, vendedores: list):
-        lista_info = self.gera_lista_info(vendedores)
-        super().lista('LISTAGEM DE VENDEDORES', vendedores, lista_info, 5)
+        layout = [
+                [sg.Output(size=(40,30), key="_output_")],
+                [sg.Button('Listar'), sg.Button('Voltar')],
+        ]  
+        window = sg.Window('Listagem - Vendedores').Layout(layout)
+        button = window.Read(timeout=5)
+
+        #Loop da Janela
+        while button[0] != 'Voltar':
+            lista = []
+            for item in vendedores:
+                num_id = "ID: " + str(item.num_id)
+                nome = "Nome: " + item.nome
+                telefone = "Telefone: " + item.telefone
+                carros_vendidos = "Carros Vendidos: " + str(item.carros_vendidos)
+                receita_gerada = "Receita Gerada: R$ " + str(item.receita_gerada)
+                lista.extend([num_id,nome,telefone, carros_vendidos, receita_gerada, "\n"])
+
+            window.FindElement('_output_').Update('')
+            for j in lista:
+                print(j)
+
+            button = window.Read()
+        window.close()
+    
+    def gera_lista_dados(self, vendedores):
+        lista = []
+        for item in vendedores:
+            num_id = "ID: " + str(item.num_id)
+            nome = "Nome: " + item.nome
+            telefone = "Telefone: " + item.telefone
+            carros_vendidos = "Carros Vendidos: " + str(item.carros_vendidos)
+            receita_gerada = "Receita Gerada: R$" + str(item.receita_gerada)
+            lista.extend([num_id,nome,telefone,carros_vendidos,receita_gerada, "\n"])
         
+        return lista
+
     def vendedor_id(self, vendedores: list):
-        lista = self.gera_lista_info(vendedores)
+        lista = self.gera_lista_dados(vendedores)
         return super().tela_input_id(lista, "ATUALIZAÇÃO DE VENDEDOR")
 
     def atualiza(self, nome: str, telefone: str):
@@ -47,23 +81,11 @@ class VendedorView(AbstractViewCRUD):
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         values = window.read()
-        #num_id = self.vendedor_id(list(self.))
         window.close()
         return values[1]
 
     def remove(self, vendedores: list):
-        lista = self.gera_lista_info(vendedores)
+        lista = self.gera_lista_dados(vendedores)
         return super().tela_input_id(lista, "REMOÇÃO DE VENDEDOR")
 
-    def gera_lista_info(self, vendedores):
-        lista = []
-        for item in vendedores:
-            num_id = "ID: " + str(item.num_id)
-            nome = "Nome: " + item.nome
-            telefone = "Telefone: " + item.telefone
-            carros_vendidos = "Carros Vendidos: " + str(item.carros_vendidos)
-            receita_gerada = "Receita Gerada: R$" + str(item.receita_gerada)
-            lista.extend([num_id,nome,telefone,carros_vendidos,receita_gerada, "\n"])
-        
-        return lista
 

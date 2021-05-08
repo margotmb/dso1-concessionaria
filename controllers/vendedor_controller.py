@@ -28,15 +28,16 @@ class VendedorController():
         if info is not None:
             for vendedor in vendedores:
 
-                if vendedor.num_id == info[2]:
+                if vendedor.num_id == info[0]:
                     self.__view.erro("Vendedor já existe")
                     return
 
-                if vendedor.telefone == info[1]:
+                if vendedor.telefone == info[2]:
                     #criar exceção
                     self.__view.erro("Telefone já existe no sistema")
                     return
 
+            #Nome, Telefone, ID
             vendedor = Vendedor(info[1], info[2], info[0])
             self.__vendedorDAO.add(vendedor)
             self.__view.sucesso()
@@ -52,7 +53,6 @@ class VendedorController():
         for vend in vendedores:
             if vend.num_id == identificacao:
                 info = self.__view.atualiza(vend.nome, vend.telefone)
-
                 if info is not None:
                     vend.nome = info[0]
                     vend.telefone = info[1]
@@ -75,6 +75,3 @@ class VendedorController():
 
             self.__view.erro("Vendedor não encontrado")
             self.remove()
-
-    def lista_vendedores(self):
-        return list(self.__vendedorDAO.get_all())

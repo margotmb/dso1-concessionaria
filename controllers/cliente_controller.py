@@ -6,7 +6,7 @@ from views.cliente_view import ClienteView
 class ClienteController():
     def __init__(self):
         self.__clienteDAO = ClienteDAO()
-        self.__cliente_view = ClienteView()
+        self.__view = ClienteView()
 
     #Tela Principal de Cliente
     def run(self):
@@ -16,52 +16,60 @@ class ClienteController():
                 "3" : self.atualiza,
                 "4" : self.remove
         }
-        opcao = self.__cliente_view.tela_principal()
+        opcao = self.__view.tela_principal()
         while opcao != "0":
             func = op_dict[opcao]
             func()
-            opcao = self.__cliente_view.tela_principal()
+            opcao = self.__view.tela_principal()
 
     def cadastra(self):
         lista = list(self.__clienteDAO.get_all())
-        info = self.__cliente_view.cadastra()
-        if info is not None:
+        dados = self.__view.cadastra()
+
+        if dados is not None:
             for cliente in lista:
-                if cliente.num_id == info[2]:
-                    self.__cliente_view.erro("Cliente já existe")
+                
+                #Verifica ID
+                if cliente.num_id == dados[0]:
+                    self.__view.erro("Cliente já existe")
                     return
-                if cliente.telefone == info[1]:
-                    self.__cliente_view.erro("Telefone já existe no sistema")
+                #Verifica Telefone
+                if cliente.telefone == dados[2]:
+                    self.__view.erro("Telefone já existe no sistema")
                     return
-            cliente = Cliente(info[0], info[1], info[2])
+
+            #Nome, Telefone, ID
+            cliente = Cliente(dados[1], dados[2], dados[0])
             self.__clienteDAO.add(cliente)
-            self.__cliente_view.sucesso()
+            self.__view.sucesso()
 
     def lista(self):
-        self.__cliente_view.lista(list(self.__clienteDAO.get_all()))
+        clientes = list(self.__clienteDAO.get_all())
+        self.__view.lista(clientes)
 
     def atualiza(self):
-        lista = list(self.__clienteDAO.get_all())
-        identificacao = self.__cliente_view.cliente_id()
-        for cliente in lista:
-            if cliente.num_id == identificacao:
-                info = self.__cliente_view.atualiza()
-                if info is not None:
-                    cliente.nome = info[0]
-                    cliente.telefone = info[1]
-                    self.__cliente_view.sucesso()
+        clientes = list(self.__clienteDAO.get_all())
+        num_id = self.__view.cliente_id(clientes)
+
+        for cliente in clientes:
+            if cliente.num_id == num_id:
+                dados = self.__view.atualiza(cliente.nome, cliente.telefone)
+                if dados is not None:
+                    cliente.nome = dados[0]
+                    cliente.telefone = dados[1]
+                    self.__clienteDAO.add(cliente)
+                    self.__view.sucesso()
                     return
-        self.__cliente_view.erro("Cliente não encontrado")
+        if num_id is not None:
+            self.__view.erro("Cliente não encontrado")
 
     def remove(self):
-        lista = list(self.__clienteDAO.get_all())
-        num_id = self.__cliente_view.remove()
-        for cliente in lista:
-            if cliente.num_id == num_id:
-                self.__clienteDAO.remove(cliente.num_id)
-                self.__cliente_view.sucesso()
-                return
-        self.__cliente_view.erro("Cliente não encontrado")
-    
-    def lista_clientes(self):
-        return list(self.__clienteDAO.get_all())
+        clientes = list(self.__clienteDAO.get_all())
+        num_id = self.__view.remove(clientes)
+        if num_id is not None:
+            for cliente in clientes:
+                if cliente.num_id == num_id:
+                    self.__clienteDAO.remove(cliente.num_id)
+                    self.__view.sucesso()
+                    return
+            self.__view.erro("Cliente não encontrado")

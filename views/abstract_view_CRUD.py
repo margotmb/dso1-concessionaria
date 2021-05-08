@@ -28,56 +28,8 @@ class AbstractViewCRUD(ABC):
             window.close()
             return None
 
-    def lista(self, titulo : str, lista_objetos: list, lista_info: list, num_info: int):
-        layout = [
-                [sg.Output(size=(40,30), key="_output_")],
-                [sg.Button('Listar'),sg.Button('Limpar')],
-                [sg.Text('Busca ID:'), sg.InputText(size=(21,1)), sg.Button('Buscar')],
-                [sg.Button('Voltar')]
-        ]  
-        window = sg.Window(titulo).Layout(layout)
-        button, values = window.Read(timeout=5)
-
-        #Loop da Janela
-        while button != 'Voltar':
-
-            #Printa a lista
-            window.FindElement('_output_').Update('')
-            for j in lista_info:
-                print(j)
-
-            #Limpa Lista
-            if button == 'Limpar':
-                window.FindElement('_output_').Update('')
-            
-            #Busca por ID
-            if button == 'Buscar':
-                lista = []
-                try:
-                    numero = int(values[0])
-                except ValueError as e:
-                    sg.popup('\nERRO: Input inválido')
-                try:
-                    for obj in lista_objetos:
-                        if obj.num_id == numero:
-                            posicao = lista_info.index("ID: " + str(obj.num_id))
-                            for i in range(posicao, posicao+num_info):
-                                lista.append(lista_info[i])
-                            window.FindElement('_output_').Update('')
-                            for j in lista:
-                                print(j)
-                except Exception as e:
-                    sg.popup('ERRO:{}'.format(e))
-                
-                if lista == []:
-                    sg.popup("Vendedor não encontrado")
-                
-            #Lê o próximo input
-            button, values = window.Read()
-        #Fecha janela ao sair do loop
-        window.close()
-
-    def tela_input_id(self, lista_info, titulo):
+    #Utilizado por Atualizar e Remover
+    def tela_input_id(self, lista_dados, titulo):
         layout = [
                 [sg.Output(size=(40,30), key="_output_")],
                 [sg.Text('ID:'), sg.InputText(size=(21,1)),sg.Submit()],
@@ -91,7 +43,7 @@ class AbstractViewCRUD(ABC):
 
             #Listagem
             window.FindElement('_output_').Update('')
-            for j in lista_info:
+            for j in lista_dados:
                 print(j)
 
             #Enviar ID
