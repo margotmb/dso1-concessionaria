@@ -1,6 +1,6 @@
 from models.vendedor import Vendedor
 from views.vendedor_view import VendedorView
-from models.vendedorDAO import VendedorDAO
+from persistencia.vendedorDAO import VendedorDAO
 
 
 class VendedorController():
@@ -23,7 +23,7 @@ class VendedorController():
             opcao = self.__view.tela_principal()
 
     def cadastra(self):
-        info = self.__view.tela_cadastra()
+        info = self.__view.cadastra()
         vendedores = list(self.__vendedorDAO.get_all())
         if info is not None:
             for vendedor in vendedores:

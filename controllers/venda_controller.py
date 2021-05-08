@@ -1,4 +1,4 @@
-from models.vendaDAO import VendaDAO
+from persistencia.vendaDAO import VendaDAO
 from models.venda import Venda
 from views.venda_view import VendaView
 

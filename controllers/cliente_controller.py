@@ -1,4 +1,4 @@
-from models.clienteDAO import ClienteDAO
+from persistencia.clienteDAO import ClienteDAO
 from models.cliente import Cliente
 from views.cliente_view import ClienteView
 

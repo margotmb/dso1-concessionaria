@@ -1,6 +1,6 @@
 from models.carro import Carro
 from views.carro_view import CarroView
-from models.carroDAO import CarroDAO
+from persistencia.carroDAO import CarroDAO
 
 class CarroController():
     def __init__(self):
