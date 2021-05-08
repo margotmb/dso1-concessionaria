@@ -9,11 +9,11 @@ class ClienteView(AbstractViewCRUD):
     def tela_principal(self):
         layout = [
             [sg.Text("----Clientes----", justification='center', size=(20,1), font='Courier 15', background_color='pink')],
-            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Cadastrar", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Listar", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Atualizar", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Remover", font='Courier 12', background_color='pink')],
-            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair", font='Courier 12', background_color='pink')]
+            [sg.Button(button_text="Cadastrar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Listar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Atualizar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Remover", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Voltar", font='Courier 12', size=(23,3))]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         values = window.read()

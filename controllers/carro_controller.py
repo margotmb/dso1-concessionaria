@@ -9,13 +9,13 @@ class CarroController():
 
     def run(self):
         op_dict = {
-                "1" : self.cadastra,
-                "2" : self.lista,
-                "3" : self.atualiza,
-                "4" : self.remove
+                "Cadastrar" : self.cadastra,
+                "Listar" : self.lista,
+                "Atualizar" : self.atualiza,
+                "Remover" : self.remove
         }
         opcao = self.__view.tela_principal()
-        while opcao != "0":
+        while opcao != "Voltar":
             func = op_dict[opcao]
             func()
             opcao = self.__view.tela_principal()
