@@ -1,4 +1,4 @@
-from models.abstractDAO import AbstractDAO
+from persistencia.abstractDAO import AbstractDAO
 from models.cliente import Cliente
 
 
