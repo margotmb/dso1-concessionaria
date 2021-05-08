@@ -38,7 +38,6 @@ class VendedorController():
                     return
 
             vendedor = Vendedor(info[1], info[2], info[0])
-            print(type(info[2]))
             self.__vendedorDAO.add(vendedor)
             self.__view.sucesso()
 
@@ -57,10 +56,11 @@ class VendedorController():
                 if info is not None:
                     vend.nome = info[0]
                     vend.telefone = info[1]
+                    self.__vendedorDAO.add(vend)
                     self.__view.sucesso()
                     return
-
-        self.__view.erro("Vendedor não encontrado")
+        if identificacao is not None:
+            self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
         vendedores = list(self.__vendedorDAO.get_all())

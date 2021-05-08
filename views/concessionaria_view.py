@@ -29,7 +29,7 @@ class ConcessionariaView:
 
     def tela_gerenciamento(self):
         layout = [
-            [sg.Text("Gerenciamento", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
+            [sg.Text("Gerenciamento", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
             [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Vendedores")],
             [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Clientes"), ],
             [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Carros"), ],

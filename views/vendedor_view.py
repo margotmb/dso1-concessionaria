@@ -8,19 +8,17 @@ class VendedorView(AbstractViewCRUD):
 
     def tela_principal(self):
         layout = [
-            [sg.Text("---- VENDEDORES ----", justification='center',size=(20,1))],
-            [sg.Button(button_text="1"), sg.Text(" <- Cadastrar")],
-            [sg.Button(button_text="2"), sg.Text(" <- Listar")],
-            [sg.Button(button_text="3"), sg.Text(" <- Atualizar")],
-            [sg.Button(button_text="4"), sg.Text(" <- Remover")],
-            [sg.Button(button_text="0"), sg.Text(" <- Sair")]
+            [sg.Text("---- VENDEDORES ----", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
+            [sg.Button(button_text="1", size=(9,3)), sg.Text(" <- Cadastrar")],
+            [sg.Button(button_text="2", size=(9,3)), sg.Text(" <- Listar")],
+            [sg.Button(button_text="3", size=(9,3)), sg.Text(" <- Atualizar")],
+            [sg.Button(button_text="4", size=(9,3)), sg.Text(" <- Remover")],
+            [sg.Button(button_text="0", size=(9,3)), sg.Text(" <- Sair")]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
-        
-        button,values = window.read()
-        print(button, values)
+        values = window.read()
         window.close()
-        return button
+        return values[0]
 
     def cadastra(self):
         layout = [
@@ -51,7 +49,7 @@ class VendedorView(AbstractViewCRUD):
         values = window.read()
         #num_id = self.vendedor_id(list(self.))
         window.close()
-        return values
+        return values[1]
 
     def remove(self, vendedores: list):
         lista = self.gera_lista_info(vendedores)
