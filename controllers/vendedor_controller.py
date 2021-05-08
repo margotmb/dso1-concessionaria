@@ -36,7 +36,7 @@ class VendedorController():
                     #criar exceção
                     self.__view.erro("Telefone já existe no sistema")
                     return
-
+                    
             #Nome, Telefone, ID
             vendedor = Vendedor(info[1], info[2], info[0])
             self.__vendedorDAO.add(vendedor)
@@ -75,3 +75,6 @@ class VendedorController():
 
             self.__view.erro("Vendedor não encontrado")
             self.remove()
+
+    def lista_vendedores(self):
+        return list(self.__vendedorDAO.get_all())

@@ -73,3 +73,6 @@ class ClienteController():
                     self.__view.sucesso()
                     return
             self.__view.erro("Cliente não encontrado")
+    
+    def lista_clientes(self):
+        return list(self.__clienteDAO.get_all())
