@@ -1,9 +1,7 @@
-import os
 import PySimpleGUI as sg
 
 
-class ConcessionariaView:
-
+class MainView:
     def __init__(self):
         pass
 
@@ -14,10 +12,7 @@ class ConcessionariaView:
             [sg.Button(button_text="Gerenciamento", font='Courier 12', size=(23,3))],
             [sg.Button(button_text="Venda", font='Courier 12', size=(23,3))],
             [sg.Button(button_text="Relatorio", font='Courier 12', size=(23,3))],
-            #[sg.Button(button_text="Concessionaria",  font='Courier 12', size=(23,3))],
-            [sg.Button(button_text="Sair", font='Courier 12', size=(23,3))],
-            # [sg.Text("Endereço: " + endereco, size=(40,1), justification='right', font='Courier 10', background_color='pink', pad=((3, 0),(50,0)))],
-            # [sg.Text("CNPJ: " + cnpj, size=(40,1), justification='right', font='Courier 10', background_color='pink',pad=((3, 0),(0,0)))]
+            [sg.Button(button_text="Sair", font='Courier 12', size=(23,3))]
         ]
         window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
         
