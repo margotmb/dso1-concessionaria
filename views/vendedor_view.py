@@ -1,78 +1,93 @@
 import os
+import PySimpleGUI as sg
+from views.abstract_view_CRUD import AbstractViewCRUD
 
-
-class VendedorView():
+class VendedorView(AbstractViewCRUD):
     def __init__(self):
         pass
 
     def tela_principal(self):
-        print("\n---- Gerenciamento de vendedor ----")
-        print("1 - Cadastrar")
-        print("2 - Listar")
-        print("3 - Atualizar")
-        print("4 - Remover")
-        print("0 - Sair")
-        print("-----------------------------------")
-        opcao = input("Opção: ")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        return opcao
+        layout = [
+            [sg.Text("---- VENDEDORES ----", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
+            [sg.Button(button_text="Cadastrar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Listar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Atualizar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Remover", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Voltar", font='Courier 12', size=(23,3))]
+        ]
+        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+        values = window.read()
+        window.close()
+        return values[0]
 
     def cadastra(self):
-        print("-----Cadastramento de Vendedor-----")
-        nome = input("Nome do Vendedor:")
-        telefone = input("Telefone do Vendedor:")
-        try:
-            num_id = int(input("Numero de Identificação:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return None
-        else:
-            if telefone.isdecimal():
-                os.system('cls' if os.name == 'nt' else 'clear')
-                return [nome, telefone, num_id]
-            else:
-                print("Telefone Inválido")
+        layout = [
+                [sg.Text("Informações do Vendedor:")],
+                [sg.Text('ID: ', size=(18,1)), sg.InputText(size=(5,1))],
+                [sg.Text('Nome: ', size=(18, 1)), sg.InputText()],
+                [sg.Text('Telefone: ', size=(18, 1)), sg.InputText()],
+                [sg.Submit(),sg.Button('Voltar')]
+        ]
+        return super().cadastra(layout, "Novo Vendedor")
 
-    def lista(self, lista):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        i = 0
-        print("\nLISTA DE VENDEDORES:")
-        for vendedor in lista:
-            print("#" + str(i))
-            print("Nome: " + vendedor.nome)
-            print("Telefone: "+ vendedor.telefone)
-            print("ID: "+ str(vendedor.num_id))
-            print("-----------------------------------")
-            i += 1
+    def lista(self, vendedores: list):
+        layout = [
+                [sg.Output(size=(40,30), key="_output_")],
+                [sg.Button('Listar'), sg.Button('Voltar')],
+        ]  
+        window = sg.Window('Listagem - Vendedores').Layout(layout)
+        button = window.Read(timeout=5)
 
-    def vendedor_id(self):
-        try:
-            num_id = int(input("Digite o ID do vendedor a ser atualizado:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return 0
-        else:
-            return num_id
+        #Loop da Janela
+        while button[0] != 'Voltar':
+            lista = []
+            for item in vendedores:
+                num_id = "ID: " + str(item.num_id)
+                nome = "Nome: " + item.nome
+                telefone = "Telefone: " + item.telefone
+                carros_vendidos = "Carros Vendidos: " + str(item.carros_vendidos)
+                receita_gerada = "Receita Gerada: R$ " + str(item.receita_gerada)
+                lista.extend([num_id,nome,telefone, carros_vendidos, receita_gerada, "\n"])
 
-    def atualiza(self):
-        print("\n-------Atualização de Vendedor--------")
-        nome = input("Nome do Vendedor:")
-        telefone = input("Telefone do Vendedor:")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        return [nome, telefone]
+            window.FindElement('_output_').Update('')
+            for j in lista:
+                print(j)
 
-    def remove(self):
-        print("-----Remoção de Vendedor-----")
-        try:
-            num_id = int(input("Digite o ID do vendedor:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return 0
-        else:
-            return num_id
-
-    def sucesso(self):
-        print("Operação realizada com sucesso")
+            button = window.Read()
+        window.close()
     
-    def erro(self, mensagem_erro: str):
-        print("\n" + mensagem_erro)
+    def gera_lista_dados(self, vendedores):
+        lista = []
+        for item in vendedores:
+            num_id = "ID: " + str(item.num_id)
+            nome = "Nome: " + item.nome
+            telefone = "Telefone: " + item.telefone
+            carros_vendidos = "Carros Vendidos: " + str(item.carros_vendidos)
+            receita_gerada = "Receita Gerada: R$" + str(item.receita_gerada)
+            lista.extend([num_id,nome,telefone,carros_vendidos,receita_gerada, "\n"])
+        
+        return lista
+
+    def vendedor_id(self, vendedores: list):
+        lista = self.gera_lista_dados(vendedores)
+        return super().tela_input_id(lista, "ATUALIZAÇÃO DE VENDEDOR")
+
+    def atualiza(self, nome: str, telefone: str, num_id: int):
+        layout = [
+            [sg.Text("Atualização de Vendedor", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
+            [sg.Text("ID: " + str(num_id), background_color='pink')],
+            [sg.Text("Nome: "), sg.InputText(default_text=nome, size=(21,1))],
+            [sg.Text("Telefone: "), sg.InputText(default_text=telefone, size=(21,1))],
+            [sg.Button('Submit'), sg.Button('Voltar')]
+        ]
+        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+        button, values = window.read()
+        window.close()
+        if button == "Submit":
+            return values
+        else:
+            return None
+
+    def remove(self, vendedores: list):
+        lista = self.gera_lista_dados(vendedores)
+        return super().tela_input_id(lista, "REMOÇÃO DE VENDEDOR")

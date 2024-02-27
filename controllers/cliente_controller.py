@@ -1,62 +1,82 @@
-from models.concessionaria import Concessionaria
+from persistencia.clienteDAO import ClienteDAO
 from models.cliente import Cliente
 from views.cliente_view import ClienteView
 
+
 class ClienteController():
-    def __init__(self, concessionaria: Concessionaria):
-        self.__concessionaria = concessionaria
-        self.__cliente_view = ClienteView()
+    def __init__(self):
+        self.__clienteDAO = ClienteDAO()
+        self.__view = ClienteView()
 
     #Tela Principal de Cliente
     def run(self):
         op_dict = {
-                "1" : self.cadastra,
-                "2" : self.lista,
-                "3" : self.atualiza,
-                "4" : self.remove
+                "Cadastrar" : self.cadastra,
+                "Listar" : self.lista,
+                "Atualizar" : self.atualiza,
+                "Remover" : self.remove
         }
-        opcao = self.__cliente_view.tela_principal()
-        while opcao != "0":
+        opcao = self.__view.tela_principal()
+        while opcao != "Voltar":
             func = op_dict[opcao]
             func()
-            opcao = self.__cliente_view.tela_principal()
+            opcao = self.__view.tela_principal()
 
     def cadastra(self):
-        info = self.__cliente_view.cadastra()
-        if info is not None:
-            for cliente in self.__concessionaria.clientes:
-                if cliente.num_id == info[2]:
-                    self.__cliente_view.erro("Cliente já existe")
+        lista = list(self.__clienteDAO.get_all())
+        dados = self.__view.cadastra()
+
+        if dados is not None:
+            for cliente in lista:
+                
+                #Verifica ID
+                if cliente.num_id == dados[0]:
+                    self.__view.erro("Cliente já existe")
                     return
-                if cliente.telefone == info[1]:
-                    self.__cliente_view.erro("Telefone já existe no sistema")
+                #Verifica Telefone
+                if cliente.telefone == dados[2]:
+                    self.__view.erro("Telefone já existe no sistema")
                     return
-            cliente = Cliente(info[0], info[1], info[2])
-            self.__concessionaria.cadastra_objeto(cliente)
-            self.__cliente_view.sucesso()
+
+            #Nome, Telefone, ID
+            cliente = Cliente(dados[1], dados[2], dados[0])
+            self.__clienteDAO.add(cliente)
+            self.__view.sucesso()
 
     def lista(self):
-        self.__cliente_view.lista(self.__concessionaria.clientes)
+        clientes = list(self.__clienteDAO.get_all())
+        self.__view.lista(clientes)
 
     def atualiza(self):
-        self.lista()
-        identificacao = self.__cliente_view.cliente_id()
-        for cliente in self.__concessionaria.clientes:
-            if cliente.num_id == identificacao:
-                info = self.__cliente_view.atualiza()
-                if info is not None:
-                    cliente.nome = info[0]
-                    cliente.telefone = info[1]
-                    self.__cliente_view.sucesso()
-                    return
-        self.__cliente_view.erro("Cliente não encontrado")
+        clientes = list(self.__clienteDAO.get_all())
+        num_id = self.__view.cliente_id(clientes)
+
+        if num_id != None:
+            for cliente in clientes:
+                if cliente.num_id == num_id:
+                    dados = self.__view.atualiza(cliente.nome, cliente.telefone, cliente.num_id)
+                    if dados is not None:
+                        cliente.nome = dados[0]
+                        cliente.telefone = dados[1]
+                        self.__clienteDAO.add(cliente)
+                        self.__view.sucesso()
+                        return
+                    else:
+                        #Caso aperte voltar ou X
+                        return
+            self.__view.erro("Cliente não encontrado")
 
     def remove(self):
-        self.lista()
-        num_id = self.__cliente_view.remove()
-        for cliente in self.__concessionaria.clientes:
-            if cliente.num_id == num_id:
-                self.__concessionaria.remove_objeto(cliente)
-                self.__cliente_view.sucesso()
-                return
-        self.__cliente_view.erro("Cliente não encontrado")
+        clientes = list(self.__clienteDAO.get_all())
+        num_id = self.__view.remove(clientes)
+        if num_id is not None:
+            for cliente in clientes:
+                if cliente.num_id == num_id:
+                    self.__clienteDAO.remove(cliente.num_id)
+                    self.__view.sucesso()
+                    return
+            self.__view.erro("Cliente não encontrado")
+    
+    def lista_clientes(self):
+        lista = list(self.__clienteDAO.get_all())
+        return lista

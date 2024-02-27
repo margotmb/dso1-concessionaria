@@ -1,87 +1,98 @@
-import os
+import PySimpleGUI as sg
+from views.abstract_view_CRUD import AbstractViewCRUD
 
 
-class CarroView():
+class CarroView(AbstractViewCRUD):
     def __init__(self):
         pass
 
     def tela_principal(self):
-        print("\n---- Gerenciamento de Carros ----")
-        print("1 - Cadastrar")
-        print("2 - Listar")
-        print("3 - Atualizar")
-        print("4 - Remover")
-        print("0 - Sair")
-        print("-----------------------------------")
-        opcao = input("Opção: ")
-        os.system('cls' if os.name == 'nt' else 'clear')
-        return opcao
+        layout = [
+            [sg.Text("----CARRO----", justification='center',size=(20,1), font='Courier 15', background_color='pink')],
+            [sg.Button(button_text="Cadastrar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Listar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Atualizar", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Remover", font='Courier 12', size=(23,3))],
+            [sg.Button(button_text="Voltar", font='Courier 12', size=(23,3))]
+        ]
+        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+        
+        button = window.read()
+        window.close()
+        return button[0]
 
     def cadastra(self):
-        print("-----Cadastramento de Carro-----")
-        marca = input("Marca do carro:")
-        modelo = input("Modelo do carro:")
-        try:
-            ano = int(input("Ano do Carro: "))
-            valor = float(input("Valor do Carro em Reais: "))
-            num_id = int(input("Numero de Identificação:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
+        layout = [
+                [sg.Text("Informações do Carro:")],
+                [sg.Text('ID: ', size=(18,1)), sg.InputText(size=(5,1))],
+                [sg.Text('Marca: ', size=(18, 1)), sg.InputText()],
+                [sg.Text('Modelo: ', size=(18, 1)), sg.InputText()],
+                [sg.Text('Ano: ', size=(18, 1)), sg.InputText()],
+                [sg.Text('Valor: R$ ', size=(18, 1)), sg.InputText()],
+                [sg.Submit(),sg.Button('Voltar')]
+        ]
+        return super().cadastra(layout, "Novo Carro")
+
+    def lista(self, carros: list):
+        layout = [
+                [sg.Output(size=(40,30), key="_output_")],
+                [sg.Button('Listar'), sg.Button('Voltar')],
+        ]  
+        window = sg.Window('Listagem - Carros').Layout(layout)
+        button = window.Read(timeout=5)
+
+        #Loop da Janela
+        while button[0] != 'Voltar':
+            lista = []
+            for item in carros:
+                num_id = "ID: " + str(item.num_id)
+                marca = "Marca: " + item.marca
+                modelo = "Modelo: " + item.modelo
+                ano = "Ano: " + str(item.ano)
+                valor = "Valor: R$" + str(item.valor)
+                lista.extend([num_id, marca, modelo, ano, valor, "\n"])
+
+            window.FindElement('_output_').Update('')
+            for j in lista:
+                print(j)
+
+            button = window.Read()
+        window.close()
+
+    def gera_lista_dados(self, carros: list):
+        lista = []
+        for item in carros:
+            num_id = "ID: " + str(item.num_id)
+            marca = "Marca: " + item.marca
+            modelo = "Modelo: " + item.modelo
+            ano = "Ano: " + str(item.ano)
+            valor = "Valor: R$" + str(item.valor)
+            lista.extend([num_id, marca, modelo, ano, valor, "\n"])
+
+        return lista
+
+    def carro_id(self, carros: list):
+        lista = self.gera_lista_dados(carros)
+        return super().tela_input_id(lista, "ATUALIZAÇÃO DE CARRO")
+
+    def atualiza(self, marca, modelo, ano, valor, num_id):
+        layout = [
+            [sg.Text("Atualização de Carro", justification='center',size=(30,1), font='Courier 15', background_color='pink')],
+            [sg.Text("ID: " + str(num_id), background_color='pink')],
+            [sg.Text("Marca: "), sg.InputText(default_text=marca, size=(21,1))],
+            [sg.Text("Modelo: "), sg.InputText(default_text=modelo, size=(21,1))],
+            [sg.Text("Ano: "), sg.InputText(default_text=str(ano), size=(21,1))],
+            [sg.Text("Valor: R$ "), sg.InputText(default_text=str(valor), size=(21,1))],
+            [sg.Button('Submit'), sg.Button('Voltar')]
+        ]
+        window = sg.Window("Título", no_titlebar=True, grab_anywhere=True).Layout(layout)
+        button, values = window.read()
+        window.close()
+        if button == "Submit":
+            return values
+        else:
             return None
-        else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            return [marca, modelo, ano, valor, num_id]
 
-    def lista(self, lista):
-        os.system('cls' if os.name == 'nt' else 'clear')
-        i = 0
-        print("\nLISTA DE carroS:")
-        for carro in lista:
-            print("#" + str(i))
-            print("Marca: " + carro.marca)
-            print("Modelo: "+ carro.modelo)
-            print("Ano: " + str(carro.ano))
-            print("Valor: R$" + str(carro.valor))
-            print("ID: "+ str(carro.num_id))
-            print("-----------------------------------")
-            i += 1
-
-    def carro_id(self):
-        try:
-            num_id = int(input("Digite o ID do carro a ser atualizado:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return 0
-        else:
-            return num_id
-
-    def atualiza(self):
-        print("\n-------Atualização de carro--------")
-        marca = input("Marca do carro:")
-        modelo = input("Modelo do carro:")
-        try:
-            ano = int(input("Ano do Carro: "))
-            valor = float(input("Valor do Carro em Reais: "))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return None
-        else:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            return [marca, modelo, ano, valor]
-
-    def remove(self):
-        print("-----Remoção de carro-----")
-        try:
-            num_id = int(input("Digite o ID do carro:"))
-        except ValueError as e:
-            print('\nERRO: Caracter inválido: {}'.format(e))
-            return 0
-        else:
-            return num_id
-
-    def sucesso(self):
-        print("Operação realizada com sucesso")
-    
-    def erro(self, mensagem_erro: str):
-        print("\n" + mensagem_erro)
-
+    def remove(self, carros: list):
+        lista = self.gera_lista_dados(carros)
+        return super().tela_input_id(lista, "REMOÇÃO DE CARRO")

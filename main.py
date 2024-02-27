@@ -1,7 +1,5 @@
-from controllers.concessionaria_controller import ConcessionariaController
-import os
+from controllers.main_controller import MainController
 
 
-controlador = ConcessionariaController()
-os.system('cls')
+controlador = MainController()
 controlador.run()

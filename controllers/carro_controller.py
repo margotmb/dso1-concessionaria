@@ -1,63 +1,88 @@
 from models.carro import Carro
 from views.carro_view import CarroView
-from models.concessionaria import Concessionaria
-
+from persistencia.carroDAO import CarroDAO
 
 class CarroController():
-    def __init__(self, concessionaria: Concessionaria):
-        self.__concessionaria = concessionaria
-        self.__carro_view = CarroView()
+    def __init__(self):
+        self.__carroDAO = CarroDAO()
+        self.__view = CarroView()
 
-   #Tela Principal de Carros
     def run(self):
         op_dict = {
-                "1" : self.cadastra,
-                "2" : self.lista,
-                "3" : self.atualiza,
-                "4" : self.remove
+                "Cadastrar" : self.cadastra,
+                "Listar" : self.lista,
+                "Atualizar" : self.atualiza,
+                "Remover" : self.remove
         }
-        opcao = self.__carro_view.tela_principal()
-        while opcao != "0":
+        opcao = self.__view.tela_principal()
+        while opcao != "Voltar":
             func = op_dict[opcao]
             func()
-            opcao = self.__carro_view.tela_principal()
+            opcao = self.__view.tela_principal()
 
     def cadastra(self):
-        info = self.__carro_view.cadastra()
-        if info is not None:
-            for carro in self.__concessionaria.carros:
-                ###
-                if carro.num_id == info[4]:
-                    self.__carro_view.erro("Carro já existe")
+        dados = self.__view.cadastra()
+        carros = list(self.__carroDAO.get_all())
+
+        if dados is not None:
+            for carro in carros:
+                if carro.num_id == dados[0]:
+                    self.__view.erro("Carro já existe")
                     return
-            carro = Carro(info[0], info[1], info[2], info[3], info[4])
-            self.__concessionaria.cadastra_objeto(carro)
-            self.__carro_view.sucesso()
+
+               
+            #Marca, Modelo, Ano, Valor, ID
+            try:
+                dados[3] = int(dados[3])
+                dados[4] = float(dados[4])
+                dados[0] = int(dados[0])
+            except ValueError:
+                self.__view.erro("DADO INVÁLIDO")
+            else:
+                carro = Carro(dados[1], dados[2], dados[3], dados[4], dados[0])
+                self.__carroDAO.add(carro)
+                self.__view.sucesso()
 
     def lista(self):
-        self.__carro_view.lista(self.__concessionaria.carros)
+        carros = list(self.__carroDAO.get_all())
+        self.__view.lista(carros)
 
     def atualiza(self):
-        self.lista()
-        identificacao = self.__carro_view.carro_id()
-        for carro in self.__concessionaria.carros:
-            if carro.num_id == identificacao:
-                info = self.__carro_view.atualiza()
-                if info is not None:
-                    carro.marca = info[0]
-                    carro.modelo = info[1]
-                    carro.ano = info[2]
-                    carro.valor = info[3]
-                    self.__carro_view.sucesso()
-                    return
-        self.__carro_view.erro("Carro não encontrado")
+        carros = list(self.__carroDAO.get_all())
+        num_id = self.__view.carro_id(carros)
+
+        if num_id != None:
+            for car in carros:
+                if car.num_id == num_id:
+                    #Se encontrou -> Chama View de Atualizar
+                    dados = self.__view.atualiza(car.marca, car.modelo, car.ano, car.valor, car.num_id)
+                    if dados is not None:
+                        car.marca = dados[0]
+                        car.modelo = dados[1]
+                        car.ano = int(dados[2])
+                        car.valor = float(dados[3])
+                        self.__carroDAO.add(car)
+                        self.__view.sucesso()
+                        return
+                    else:
+                        #Caso aperte voltar ou X
+                        return
+            self.__view.erro("Vendedor não encontrado")
 
     def remove(self):
-        self.lista()
-        num_id = self.__carro_view.remove()
-        for carro in self.__concessionaria.carros:
-            if carro.num_id == num_id:
-                self.__concessionaria.remove_objeto(carro)
-                self.__carro_view.sucesso()
-                return
-        self.__carro_view.erro("Carro não encontrado")
+        carros = list(self.__carroDAO.get_all())
+        num_id = self.__view.remove(carros)
+
+        if num_id is not None:
+            for carro in carros:
+                if carro.num_id == num_id:
+                    self.__carroDAO.remove(carro.num_id)
+                    self.__view.sucesso()
+                    return
+
+            self.__view.erro("Carro não encontrado")
+            self.remove()
+    
+    def lista_carros(self):
+        lista = list(self.__carroDAO.get_all())
+        return lista

@@ -8,6 +8,14 @@ class Carro:
         self.__num_id = num_id
 
     @property
+    def marca(self):
+        return self.__marca
+    
+    @marca.setter
+    def marca(self, marca):
+        self.__marca = marca
+
+    @property
     def modelo(self):
         return self.__modelo
 
